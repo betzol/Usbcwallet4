@@ -1,0 +1,4088 @@
+<!DOCTYPE html><!--worldCities--><!--empiezan los scripts-->
+<head>
+  <meta charset="UTF-8" />
+ <title>  ||   www.3coma14apps.com||Usbcwallet4||pi Network app||testnet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+  
+   <style> #globe { width: 400px; height: 400px; margin: 50px auto; background-size: cover; background-position: center; border-radius: 50%; box-shadow: 0 0 30px #000; } </style>
+  
+  <style>
+ 
+  
+  
+    :root {
+  --bg: #f8fafc;
+  --fg: #1e293b;
+  --fg-muted: #475569;
+  --border: #cbd5e1;
+  --green: #059669;
+  --green-hover: #047857;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0; padding: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Arial, 'Helvetica Neue';
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.container {
+  max-width: 760px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  padding: 16px;
+  overflow: hidden;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin: 0 0 0.25rem;
+  color: #0f172a;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.subtle { color: var(--fg-muted); font-size: 0.9rem; margin: 0.25rem 0 0.75rem; }
+
+.row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 8px; border-radius: 999px; font-size: 0.78rem; font-weight: 600;
+  background: #e2e8f0; color: #0f172a;
+}
+.badge.green { background: #d1fae5; color: #065f46; }
+.badge.gray { background: #e5e7eb; color: #374151; }
+.badge.yellow { background: #fef3c7; color: #92400e; }
+
+.toggle-wrap { display: inline-flex; align-items: center; gap: 8px; }
+.toggle-label { font-size: 0.9rem; color: #374151; font-weight: 600; }
+
+.toggle-switch {
+  appearance: none;
+  width: 44px; height: 24px;
+  background-color: #cbd5e1;
+  border-radius: 999px;
+  position: relative; outline: none; cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.toggle-switch::before {
+  content: "";
+  position: absolute; top: 3px; left: 3px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #fff; transition: transform 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+.toggle-switch:checked { background-color: var(--green); }
+.toggle-switch:checked::before { transform: translateX(20px); }
+
+.alert {
+  display: flex; align-items: center; gap: 8px;
+  background: #fef3c7; color: #92400e;
+  border: 1px solid #f59e0b; border-radius: 8px;
+  padding: 8px 10px; font-size: 0.9rem;
+}
+
+.grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 520px) { .grid { grid-template-columns: 1fr 1fr; } }
+
+.panel {
+  border: 1px solid var(--border); border-radius: 8px; padding: 10px;
+  background: #f8fafc;
+}
+
+.panel.orange { background: #fff7ed; border-color: #fdba74; }
+.panel.green  { background: #ecfdf5; border-color: #6ee7b7; }
+
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+.testnet-input {
+  border: none; background: transparent; width: 100%; padding: 0; margin-top: 6px;
+}
+
+label { display: block; margin-top: 12px; font-weight: 600; font-size: 0.88rem; color: #0f172a; }
+input[type="number"], input[type="text"] {
+  width: 100%; margin-top: 6px; padding: 10px 12px; font-size: 0.95rem;
+  border: 1px solid var(--border); border-radius: 8px; background: #ffffff;
+}
+input::placeholder { color: #9ca3af; }
+
+.btn {
+  margin-top: 16px; width: 100%; padding: 12px 14px;
+  background: var(--green); color: #fff; border: none; border-radius: 8px;
+  font-size: 1rem; font-weight: 700; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  transition: background 0.2s ease, transform 0.02s ease;
+}
+.btn:hover { background: var(--green-hover); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+.logs {
+  margin-top: 16px; font-size: 0.84rem;
+  background: #f1f5f9; border: 1px solid var(--border);
+  padding: 8px; border-radius: 8px; max-height: 220px; overflow-y: auto;
+}
+
+table { width: 100%; margin-top: 12px; border-collapse: collapse; font-size: 0.85rem; }
+th, td { padding: 8px; border: 1px solid var(--border); text-align: left; }
+thead th { background: #e2e8f0; font-weight: 700; }
+/* Iconos/colores diferenciados por modo */
+.icon { font-style: normal; }
+.icon-mainnet { color: #065f46; }   /* verde oscuro */
+.icon-testnet { color: #92400e; }   /* naranja oscuro */
+
+/* Estilos para líneas de log por modo */
+.log-line { display: block; }
+.log-mainnet { color: #065f46; }
+.log-testnet { color: #92400e; }
+
+/* Badges de modo visualmente distintos */
+.badge-mode { display: inline-flex; align-items: center; gap: 6px; }
+.badge-mode.mainnet { background: #d1fae5; color: #065f46; }
+.badge-mode.testnet { background: #fef3c7; color: #92400e; }
+
+  </style>
+  <style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background: white; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+    border-radius: 8px;
+      max-width: 1400px; 
+    background: linear-gradient(135deg, #059669 0%, #ff1818 100%);
+    color: white;
+    padding: 24px;
+    text-align: center;
+
+        }
+        .header h1 { font-size: 28px; margin-bottom: 8px; }
+        .header p { opacity: 0.9; }
+        .content { padding: 24px; }
+        .section { 
+            
+           padding: 8px 16px; 
+          
+            gap: 16px; 
+            margin-top: 16px; 
+            
+            margin-bottom: 32px;
+            border: 1px solid #d1fae5; 
+           /* border-bottom: 2px solid #d1fae5;*/
+             border-radius: 4px; /* opcional, esquinas redondeadas */
+             border-color: #fdba74;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+             transition: background-color 0.3s ease;
+            
+            
+            
+        }
+        .section h2 { 
+            color: #059669; 
+            margin-bottom: 16px; 
+            font-size: 20px;
+            border-bottom: 2px solid #d1fae5;
+            padding-bottom: 8px;
+        }
+        .wallet-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 16px; 
+            margin-top: 16px; 
+        }
+        .wallet-card { 
+            
+            
+              
+            
+            
+            border: 1px solid #d1fae5; 
+            border-radius: 8px; 
+            padding: 16px; 
+            background: #f0fdf4;
+            transition: transform 0.2s;
+            width: 940px;
+            
+            
+            
+        }
+        .wallet-card img {
+  width: 100%;
+  max-width: 160px;
+  height: auto;
+  margin: 0 auto 8px;
+  display: block;
+}
+        .wallet-card:hover { transform: translateY(-2px); }
+        .wallet-card h3 { color: #059669; margin-bottom: 8px; }
+        .wallet-card p { color: #374151; font-size: 14px; margin-bottom: 4px; }
+        .value { font-weight: bold; color: #059669; font-size: 18px; }
+        .url { 
+            font-family: monospace; 
+            background: #e5e7eb; 
+            padding: 4px 8px; 
+            border-radius: 4px; 
+            font-size: 12px;
+            word-break: break-all;
+        }
+        .button { 
+                background-color: #fbb44a;
+            color: white; 
+            border: none; 
+            padding: 8px 16px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 14px;
+            margin: 4px 4px 4px 0;
+        }
+        .button:hover { background: #1bf779; }
+        .button.danger { background: #dc2626; }
+        .button.danger:hover { background: #b91c1c; }
+        .status { 
+            padding: 12px; 
+            border-radius: 6px; 
+            margin-bottom: 16px; 
+            text-align: center;
+        }
+        .status.offline { background: #fef3c7; color: #92400e; }
+        .status.secure { background: #d1fae5; color: #065f46; }
+        .instructions { 
+            background: #f9fafb; 
+            border-left: 4px solid #059669; 
+            padding: 16px; 
+            margin: 16px 0;
+        }
+        .file-input { 
+            margin: 16px 0; 
+            padding: 12px; 
+            border: 2px dashed #d1fae5; 
+            border-radius: 8px; 
+            text-align: center;
+        }
+        input[type="file"] { margin: 8px 0; }
+        .footer { 
+            background: #f9fafb; 
+            padding: 16px 24px; 
+            text-align: center; 
+            color: #6b7280; 
+            font-size: 14px;
+        }
+        .security-section {
+            background: #fef2f2;
+            border: 2px solid #fecaca;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        
+         .security-section2 {
+           background: #ff9b07;
+           border: 2px solid #fd5d03;
+           border-radius: 8px;
+           padding: 16px;
+           margin: 16px 0;
+        }
+        
+        
+        .qr-code {
+            display: inline-block;
+            padding: 8px;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            margin: 8px;
+        }
+        .seed-phrase {
+            background: #f3f4f6;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 8px 0;
+        }
+        .private-key {
+            background: #fef2f2;
+            border: 2px solid #fecaca;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
+            margin: 8px 0;
+        }
+        .tabs {
+  display: flex;
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 16px;
+  max-width: 1400px; 
+  overflow-x: auto;              /* habilita scroll horizontal */
+  -webkit-overflow-scrolling: touch; /* scroll suave en iOS */
+}
+
+
+
+.tab {
+    
+    
+     /* cursor: default; /* flechita normal */
+      background-color: #fbb44a;
+      cursor: pointer; /* mano */
+    border-bottom: 2px solid transparent;
+            transition: all 0.2s; 
+     padding: 12px 24px;
+  flex: 0 0 auto; /* evita que las tabs se encojan */
+}
+
+        .tab.active {
+            border-bottom-color: #059669;
+            color: #059669;
+            font-weight: 600;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }        
+   
+:root {
+    --primary:#5bff00; --border:#cbd5e1; --bg:#f8fafc; --text:#0f172a; --muted:#64748b;
+    --danger:#ef4444; --card:#ffffff;
+  }
+    
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; background: var(--bg); color: var(--text); }
+  .container { max-width: 960px; margin: 48px auto; padding: 0 16px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; box-shadow: 0 2px 12px rgba(2,6,23,.05); }
+  .title { margin: 0 0 6px; font-size: 22px; font-weight: 800; letter-spacing: -0.01em; }
+  .subtitle { margin: 0 0 18px; color: var(--muted); }
+
+  .dropzone {
+    position: relative; border: 2px dashed var(--border); border-radius: 12px; background: #fff;
+    padding: 28px; text-align: center; transition: border-color .18s, background .18s;
+  }
+  .dropzone.dragover { border-color: var(--primary); background: #f0fdf4; }
+  .dz-inner { max-width: 560px; margin: 0 auto; }
+  .dz-icon { display:inline-flex; align-items:center; justify-content:center; width: 48px; height:48px; color: var(--primary); margin-bottom: 8px; }
+  .dz-title { font-weight: 700; margin-bottom: 6px; }
+  .dz-help { color: var(--muted); font-size: 14px; margin-bottom: 14px; }
+
+  .toolbar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+  .btn {
+    appearance: none; border: 1px solid var(--border); background:#fff; color: var(--text);
+    padding: 10px 14px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: .18s;
+  }
+  .btn:hover { border-color:#94a3b8; transform: translateY(-1px); }
+  .btn-primary { background: var(--primary); color:#fff; border-color: var(--primary); }
+  .btn-primary:hover { filter: brightness(.96); }
+  .btn-danger { border-color: #fecaca; background: #fee2e2; color: #991b1b; }
+  .btn-danger:hover { filter: brightness(.98); }
+
+  input[type=file] { display:none; }
+
+  .summary {
+    margin-top: 14px; display:flex; gap:16px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+    color: var(--muted); font-size: 14px;
+  }
+  .summary .stats { display:flex; gap:16px; flex-wrap:wrap; }
+  .summary b { color: var(--text); }
+
+  .preview { margin-top: 18px; display:grid; grid-template-columns: repeat( auto-fit, minmax(220px, 1fr) ); gap: 14px; }
+  .item { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: #fff; display:flex; flex-direction: column; position:relative; }
+  .thumb { width:  20%;
+  height: 100px;
+  object-fit: cover;
+  background: #f1f5f9;
+  display: block;
+  margin: 0 auto; }
+  .meta { padding: 10px; display:grid; gap:8px; }
+  .filename { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .label { font-size: 12px; color: var(--muted); }
+  .input { width:100%; padding: 8px 10px; border:1px solid var(--border); border-radius: 8px; outline: none; transition: border-color .18s, box-shadow .18s; }
+  .input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(16,185,129,.16); }
+  .remove { position:absolute; top:8px; right:8px; border:none; background:#fff; border-radius: 999px; width: 32px; height:32px; box-shadow: 0 2px 8px rgba(0,0,0,.12); cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .remove:hover { background: #fef2f2; color: #b91c1c; }
+
+  .progress { display:none; margin-top:16px; }
+  .bar-wrap { background:#e5e7eb; border-radius: 10px; height: 10px; overflow: hidden; }
+  .bar { height:100%; width:0%; background: linear-gradient(90deg, #10b981, #34d399); transition: width .2s; }
+  .progress-label { margin-top:8px; font-size: 13px; color: var(--muted); }
+
+  .output { display:none; margin-top: 18px; background: #0b1220; color: #d1e7ff; padding: 16px; border-radius: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; overflow: auto; max-height: 520px; border: 1px solid #0b2942; }
+  .out-actions { display:none; margin-top:10px; gap:10px; justify-content:flex-end; }
+  .footer { margin-top: 18px; display:flex; justify-content:center; color: var(--muted); font-size: 12px; }
+  
+  
+  
+  .file-input {
+  margin-top: 16px;
+  display: block;
+}
+
+.file-input input[type="file"] {
+  display: inline-block;
+  padding: 6px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+}
+
+.file-input button {
+  margin-left: 8px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+  input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  display: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield; /* Firefox */
+}
+#hotWalletBalance {
+  pointer-events: none;       /* bloquea clics y teclado */
+  user-select: none;          /* impide selección de texto */
+  -moz-appearance: textfield; /* quita flechas en Firefox */
+  border: none;
+  background: transparent;
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #1e293b;             /* mismo color que el texto normal */
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  display: none;              /* quita flechas en Chrome/Safari */
+  margin: 0;
+}
+body.dark-mode {
+  background: #000000;
+  color: #000000;
+}
+
+body.dark-mode .card,
+body.dark-mode .dropzone,
+body.dark-mode .wallet-card,
+body.dark-mode .panel,
+body.dark-mode .file-input,
+body.dark-mode .output {
+  background: #000000;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+body.dark-mode .btn {
+  background: #334155;
+  color: #f8fafc;
+  border-color: #475569;
+}
+body.dark-mode .btn-primary {
+  background: #059669;
+  border-color: #059669;
+  color: #fff;
+}
+body.dark-mode .btn-danger {
+  background: #991b1b;
+  border-color: #fecaca;
+  color: #fee2e2;
+}
+
+body.dark-mode .dz-help,
+body.dark-mode .subtitle,
+body.dark-mode .label,
+body.dark-mode .filename {
+  color: #94a3b8;
+}
+
+body.dark-mode .input,
+body.dark-mode input[type="number"] {
+  background: #1e293b;
+  border-color: #475569;
+  color: #f8fafc;
+}
+body.dark-mode {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+body.dark-mode .card,
+body.dark-mode .wallet-card,
+body.dark-mode .dropzone {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+body.dark-mode .btn-primary {
+  background: #10b981;
+  border-color: #10b981;
+  color: #ffffff;
+}
+body.dark-mode .btn-danger {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #ffffff;
+}
+body.dark-mode .dz-help,
+body.dark-mode .label,
+body.dark-mode .filename {
+  color: #94a3b8;
+}
+body.dark-mode .input,
+body.dark-mode input[type="number"] {
+  background: #000000;
+  border-color: #475569;
+  color: #f8fafc;
+}
+#popup {
+  display: none;
+  position: fixed;
+  bottom: 160px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0f0;
+  padding: 1em;
+  border-radius: 5px;
+  color: #000;
+  font-weight: bold;
+  z-index: 2000;
+}
+
+  .modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+   z-index: 3000;
+}
+.modal-content {
+  background: #d00;
+  border-color: #988aa5;
+  border-style: solid;
+  margin: 15% auto;
+  padding: 20px;
+  width: 600px;
+  text-align: center;
+  border-radius: 8px;
+}
+#walletCards, #mintedCards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.wallet-card {
+  border: 1px solid #ccc;
+  padding: 12px;
+  width: 240px;
+  background: #f9f9f9;
+}
+.auth-button  {
+background-color: #fbb44a;
+            color: red; 
+            border: 2px; 
+            padding: 8px 16px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 14px;
+            margin: 4px 4px 4px 0;
+        }
+ /* Contenedor de la galería */
+#userGallery {
+    
+    padding: 8px 16px; 
+    gap: 16px; 
+     
+   
+     border: 1px solid #d1fae5; 
+           /* border-bottom: 2px solid #d1fae5;*/
+    border-radius: 4px; /* opcional, esquinas redondeadas */
+     border-color: #fdba74;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease;
+  display: flex;
+  border-radius: 5px;
+  flex-wrap: wrap;
+  gap: 1rem;
+  /*margin-top: 20px;*/
+  /* margin-bottom: 32px;*/
+}
+
+/* Card de cada pago */
+
+.payment-card .card-body {
+  max-height: 80px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.payment-card:hover .card-body {
+  max-height: 500px;
+}
+
+
+
+
+
+.payment-card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 280px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  font-family: system-ui, sans-serif;
+}
+
+/* Cabecera */
+.payment-card .card-header {
+  background: #f5f5f5;
+  padding: 8px 12px;
+  font-weight: bold;
+  font-size: 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Cuerpo */
+.payment-card .card-body {
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.payment-card .card-body p {
+  margin: 4px 0;
+}
+
+
+/* Imagen dentro de la cabecera */
+.payment-card .card-header img {
+  display: block;        /* que se comporte como bloque */
+  max-width: 100%;       /* nunca más ancho que la card */
+  height: 150px;         /* altura fija */
+  object-fit: cover;     /* recorta para que encaje sin deformarse */
+  margin-top: 8px;       /* separación respecto al texto */
+  border-radius: 4px;    /* esquinas redondeadas opcionales */
+}
+
+
+
+
+/* Acciones */
+.payment-card .card-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-top: 1px solid #ddd;
+}
+
+.payment-card .card-actions button {
+  background: #007bff;
+  border: none;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.payment-card .card-actions button:hover {
+  background: #0056b3;
+}
+.toggle-switch {
+  appearance: none;
+  width: 44px; height: 24px;
+  background-color: #cbd5e1;
+  border-radius: 999px;
+  position: relative; outline: none; cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.toggle-switch::before {
+  content: "";
+  position: absolute; top: 3px; left: 3px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #fff; transition: transform 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+.toggle-switch:checked { background-color: var(--green); }
+.toggle-switch:checked::before { transform: translateX(20px); }
+
+.alert {
+  display: flex; align-items: center; gap: 8px;
+  background: #fef3c7; color: #92400e;
+  border: 1px solid #f59e0b; border-radius: 8px;
+  padding: 8px 10px; font-size: 0.9rem;
+}
+
+.grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 520px) { .grid { grid-template-columns: 1fr 1fr; } }
+
+.panel {
+  border: 1px solid var(--border); border-radius: 8px; padding: 10px;
+  background: #f8fafc;
+}
+
+.panel.orange { background: #fff7ed; border-color: #fdba74; }
+.panel.green  { background: #ecfdf5; border-color: #6ee7b7; }
+
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+.testnet-input {
+  border: none; background: transparent; width: 100%; padding: 0; margin-top: 6px;
+}
+ 
+</style>
+      <style>
+    /* Estilos generales */
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Botones flotantes */
+    .scroll-btn {
+        position: fixed;
+        right: 20px;
+        padding: 10px 15px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007BFF;
+        color: white;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        transition: background-color 0.3s ease;
+        z-index: 1000;
+    }
+
+    .scroll-btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* Posiciones */
+    #btnUp {
+        bottom: 70px;
+    }
+
+    #btnDown {
+        bottom: 20px;
+    }
+ 
+ 
+
+ 
+ 
+    
+ /* Contenedor de la galería global (todos los usuarios) */
+#alluserGallery {
+    
+   /*display: block;*/        /* que se comporte como bloque */
+  max-width: 100%;       /* nunca más ancho que la card */
+ /* height: 750px; */        /* altura fija */
+  object-fit: cover;    /* recorta para que encaje sin deformarse */
+  margin-top: 8px;       /* separación respecto al texto */
+  border-radius: 4px;    /* esquinas redondeadas opcionales */ 
+    
+ display: flex;
+/* display: grid;*/
+  flex-wrap: wrap;
+  gap: 5rem;
+  margin-top: 20px;
+  justify-content: flex-start;
+}   
+.user-img {
+  width: 100px;
+  height: auto;   /* mantiene la proporción */
+  border-radius: 4px; /* opcional, esquinas redondeadas */
+  border-color: #fdba74;
+   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        transition: background-color 0.3s ease;
+}
+
+  </style>
+
+  <style>
+#canvasWrapper {
+    
+    background: radial-gradient(circle at 50% 20%, #0a0a1a, #000000 80%);  
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 40px 0;
+  position: relative;
+}
+
+/* ⭐ HALO DIFUSO DETRÁS */
+#canvasWrapper::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(0,150,255,0.5) 0%,
+    rgba(0,0,0,0) 120%
+  );
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+ 
+  
+
+
+/* ⭐ BORDE FRONTAL */
+#canvasWrapper::after {
+  content: "";
+  position: absolute;
+  
+  width: 260px;
+  height: 260px;
+  
+  
+  
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 3px solid rgba(255,255,255,0.4);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ⭐ CANVAS EN EL MEDIO */
+#cas {
+  position: relative;
+  z-index: 5; /* ⭐ por encima de innerCircle, lightSpot y topGloss */
+}
+
+
+
+ #innerCircle {
+  position: absolute;
+  
+  width: 260px;   /* ajustado para encajar dentro del borde de 260px */
+  
+  height: 260px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* ⭐ EFECTO METAL PULIDO */
+  background: radial-gradient(circle at 30% 30%,
+    rgba(255,255,255,0.35) 0%,     /* brillo superior */
+    rgba(200,200,200,0.15) 35%,    /* zona suave */
+    rgba(80,80,80,0.25) 100%       /* sombra metálica */
+  );
+
+  /* ⭐ PROFUNDIDAD INTERIOR */
+  box-shadow:
+    inset 0 0 25px rgba(255,255,255,0.25),
+    inset 0 0 45px rgba(0,0,0,0.45),
+    0 0 12px rgba(255,255,255,0.1);
+
+  /* ⭐ BORDE METÁLICO */
+  border: 1px solid rgba(255,255,255,0.45);
+
+  z-index: 2;
+  pointer-events: none;
+}
+#lightSpot {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background: radial-gradient(circle at 50% 20%,
+    rgba(255,255,255,0.35) 0%,
+    rgba(255,255,255,0.10) 25%,
+    rgba(255,255,255,0.00) 70%
+  );
+
+  z-index: 3; /* encima del metal, debajo del borde */
+  pointer-events: none;
+}
+
+#topGloss {
+  position: absolute;
+  width: 260px;
+  height: 130px; /* solo la mitad superior */
+  border-radius: 260px 260px 0 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.35) 0%,
+    rgba(255,255,255,0.10) 40%,
+    rgba(255,255,255,0.00) 100%
+  );
+
+  z-index: 4; /* encima del foco, debajo del borde */
+  pointer-events: none;
+}
+
+  </style>
+
+<style>
+#countdown {
+   /* position: fixed;*/
+   position: center;
+   /* right: 26px;*/
+  /*  top: 26px;*/
+    width: 100px; height: 100px;
+    padding: 26px 26px;
+    font-size: 14px;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    
+    /* Fondo casi negro con degradado sutil */
+    background: radial-gradient(circle at 10% 0%, #1f2937 0%, #020617 60%);
+    
+    color: #f9fafb;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    
+    border-radius: 999px;
+    border: 1px solid rgba(56, 189, 248, 0.6);
+    
+    box-shadow:
+        0 0 15px rgba(56, 189, 248, 0.45),
+        0 0 40px rgba(37, 99, 235, 0.25);
+    
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    
+    /* Línea superior tipo HUD */
+    box-shadow:
+        0 0 15px rgba(56, 189, 248, 0.55),
+        0 -1px 0 rgba(148, 163, 184, 0.5) inset,
+        0 1px 0 rgba(15, 23, 42, 0.9) inset;
+    
+    /* Pulso suave */
+    animation: countdownGlow 2.4s ease-in-out infinite;
+    
+    transition: 
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+    z-index: 1000;
+}
+
+#countdown:hover {
+    transform: translateY(-1px) scale(1.02);
+    border-color: rgba(96, 165, 250, 0.95);
+    box-shadow:
+        0 0 20px rgba(96, 165, 250, 0.75),
+        0 0 50px rgba(59, 130, 246, 0.4);
+}
+
+@keyframes countdownGlow {
+    0% {
+        box-shadow:
+            0 0 10px rgba(56, 189, 248, 0.35),
+            0 0 25px rgba(37, 99, 235, 0.25);
+        border-color: rgba(56, 189, 248, 0.6);
+    }
+    50% {
+        box-shadow:
+            0 0 20px rgba(96, 165, 250, 0.85),
+            0 0 55px rgba(59, 130, 246, 0.6);
+        border-color: rgba(125, 211, 252, 1);
+    }
+    100% {
+        box-shadow:
+            0 0 10px rgba(56, 189, 248, 0.35),
+            0 0 25px rgba(37, 99, 235, 0.25);
+        border-color: rgba(56, 189, 248, 0.6);
+    }
+}
+
+ 
+</style>
+
+<style>
+    
+ .control-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, #00b3ff, #0077ff);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 4px;
+  transition: 0.15s;
+}
+
+.control-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #0095dd, #005fcc);
+}
+   
+    
+    
+</style>
+
+<style>
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chatUserBtn {
+  padding: 4px 8px;
+  font-size: 12px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #00b3ff, #0077ff);
+  color: #fff;
+  cursor: pointer;
+}
+
+.userInfo {
+  flex: 1;        /* ⭐ Esto hace que el texto ocupe el espacio y el botón NO se mueva */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+    
+ #playerList {
+  max-height: 160px;
+  overflow-y: auto;
+  padding-right: 6px;
+
+  background: #000;
+  color: #fff;
+  font-family: sans-serif;
+  border: 1px solid #333;
+  border-radius: 8px;
+
+  text-align: left;
+  line-height: 1.8;
+  font-size: 14px;
+}
+   
+</style>
+
+
+</head>
+<body>
+    
+   <div class="container">
+  <div id="console" style="background:#111;color:#0f0;padding:10px;font-family:monospace;font-size:12px;max-height:400px;overflow-y:auto;border-top:2px solid #0f0;">
+  <strong>🧠 Consola de depuración:</strong><br></div>
+    
+    <!--div class="card"><div id="logs">📜Logs:</div></div-->
+    
+    
+    
+    
+   
+    <!--div id="piStatus"></div--> 
+ <div id="popup">✅ Pago completado</div>   
+ 
+ 
+ 
+ 
+ 
+  
+
+
+      
+   <div class="card"> 
+ <div class="wallet-simulator">
+          
+</div></div>
+   
+    
+        <div class="header">
+            <h1>🔒 Usbcwallet4</h1>
+            
+              
+            
+            <p>Professional Cold Storage Interface -Online & Offline Pi Coin Management</p>
+            
+             <h2><img src="https://www.3coma14apps.com/app12/public/data/users/pilt365/gallery/picoin.png" />Testnet App   π </h2>
+            🌐 Domain: <strong>www.3coma14apps.com</strong><br/>
+ <strong id="Receiver wallet"> 🔐 Receiver wallet:<span class="mono">GCG3CQS...</span><br/>
+ 
+        
+         
+          <p><strong>piaPPBalance:</strong>  <span id="piaPPBalance">—</span></p> 
+            
+          
+            <button id="logoutBtn" class="button" >🚪 Cerrar sesión</button>
+    <button onclick="toggleDarkMode()" class="button">🌙 Toggle Dark Mode</button></div> 
+  
+    
+
+ 
+   
+      
+
+     
+    <!--auth-section-->
+    
+  
+ 
+ <!--auth-section-->
+ 
+ 
+ 
+        <div class="status secure">
+              <!--  ✅ SECURE OFFLINE MODE - Your Pi Coins are safe in cold storage  -->
+            </div>
+         
+        
+            
+            
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('Profile')">😎 Profile</div>
+                 <div class="tab" onclick="showTab('minter')">⛏  minter</div>
+                <div class="tab" onclick="showTab('security')">🔐 Security</div>
+                <div class="tab" onclick="showTab('transactions')">🖼 pi Token MarketPlace</div>
+                <div class="tab" onclick="showTab('backup')">💾 Backup</div>
+               
+                <div class="tab" onclick="showTab('usb')">⚙️ USB</div>
+                <div class="tab" onclick="showTab('login')">👤 Login</div>
+                 <div class="tab" onclick="showTab('Roadmap')">📌 Roadmap</div>
+            </div>
+            
+            
+            <div class="content">
+            
+            
+             <div id="Profile" class="tab-content active">
+        
+    
+   
+   <h2 class="security-section" >😎 Profile Features</h2>
+    <!--div class="container"-->
+    <section id="perfil"  class="section">
+                    <!--h2>📁 Wallet Management</h2-->
+                    
+                    
+                    
+                 
+                    <!--p>Sección del perfil Usuario</p-->
+                   
+                   
+    <p class="instructions">Wellcome private profile. <span id="bienvenida"></span></p>
+
+ 
+   <p class="instructions">Bienvenida. panel privado . <span id="bienvenida2"></span></p>
+
+ <p class="instructions">Bienvenida. panel privado . <span id="bienvenida3"></span></p>
+
+
+               <div id="user-section" style="display:none;"> </div>  
+ 
+
+ <div id="auth-section"> 
+ 
+  <button id="auth-button"  class="button"   onclick="authenticate()">  π   Sign in - Pi Network </button>
+ 
+ 
+ </div> 
+   <img class="user-img" src="https://www.3coma14apps.com/app12/public/data/users/{username}/gallery/profile.jpg" />
+     <p>user-status:  <div id="user-status">
+         
+         
+         
+      <p id="auth-status"  class="">Connecting...</p>
+   
+      
+      
+      </div>  
+   <div class="status" style="display: none;"> 
+   
+     
+   
+   
+   </div>   
+ <div id="piStatus"></div> 
+    <div id="payment-status">
+    <p id="payment-status"></p></div>
+ 
+
+   <p class="security-section"><strong>username:</strong> <span id="user-username"></span></p>
+   <p class="security-section"><strong>UID:</strong> <span id="user-uid"></span></p>
+   <p class="security-section"><strong>balance: </strong><span id="user-balance"></span></p>
+   <p class="security-section"><strong>🔗 wallet_address:</strong> <span id="wallet_address"  ></span></p>
+    <!--p class="security-section"><strong>piUser: </strong><span id="piUser"></span></p-->
+<div id="info" class="security-section">Loading location...</div>
+<!--img class="user-img" src="https://www.3coma14apps.com/app12/public/data/users/pilt365/gallery/placeholder-user.jpg" /-->
+<!--img class="user-img" src="https://www.3coma14apps.com/app12/public/data/users/<%= username %>/gallery/profile.jpg" /-->
+ <h2 class="security-section">🌎 conneccted Pioneers</h2>
+ 
+  
+  
+  <div style="font-size: 18px; text-align: center; margin-bottom: 10px;">
+    🗺️ Mapa de jugadores
+  </div> 
+  <div id="countdown"></div>    
+ 
+            
+        <!-- ✅ ESFERA 3D CANVAS -->
+    
+
+    
+     
+      
+<!-- ✅ ESFERA 3D CANVAS -->
+
+    <!-- ✅ ESFERA 3D CANVAS -->
+<div id="canvasWrapper">
+  
+    <div id="topGloss"></div>
+
+    <div id="lightSpot"></div>
+
+    <div id="innerCircle"></div>
+
+  <canvas id="cas" width="700" height="400">
+  </canvas>
+</div>
+
+
+ 
+
+<div style="font-size: 18px; text-align: center; margin-bottom: 10px;"> 
+  
+          <button class="control-btn" onclick="stopRotation()">⛔ Parar</button>
+    <button class="control-btn" onclick="startRotation()">▶️ Reanudar</button>
+<button class="control-btn" onclick="disableHover()">🙈 Sin Hover</button>
+<button class="control-btn" onclick="enableHover()">👁️ Con Hover</button>
+    </div> 
+
+<h2 class="security-section"> chatBox</h2>
+<div id="chatBox" style="
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  /*background: #0b0d14;*/
+  border: 1px solid #222838;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+">
+
+   <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#9da3b5;">
+<!--aquihabialabotoneradelabola-->
+<div> 
+    <strong>Chat IA</strong>   
+      <label for="langSelect" style="margin-right:4px;">Idioma:</label>
+      <select id="langSelect" style="
+        background:#05060a;
+        color:#eee;
+        border-radius:6px;
+        border:1px solid #222838;
+        padding:4px 6px;
+        font-size:12px;
+      ">
+        <option value="es">Español</option>
+        <option value="en">Inglés</option>
+        <option value="fr">Francés</option>
+        <option value="de">Alemán</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="messages" style="
+    height: 100px;
+    overflow-y: auto;
+     /*background: radial-gradient(circle at top, #111624 0%, #05060a 70%);*/
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+    padding: 8px;
+    border-radius: 8px;
+   
+    font-size: 14px;
+  ">💌messages Chat,click each 💬 profile to load the chat conversation</div>
+<!--button class="chatUserBtn" data-user="{{userId}}">Hablar</button-->
+<!--button class="chatUserBtn" data-user="${player.userId}">Hablar</button-->
+<!--button class="chatUserBtn" data-user="${p.name}">Hablar</button-->
+
+  <form id="chatForm" style="display:flex; gap:8px;">
+    <input id="messageInput" type="text" placeholder="Escribe..." autocomplete="off" style="
+      flex:1;
+      padding:8px 10px;
+      border-radius:8px;
+      border:1px solid #222838;
+      background:#05060a;
+      color:#eee;
+      outline:none;
+    ">
+    <button type="submit" style="
+      padding:8px 14px;
+      border-radius:8px;
+      border:none;
+      background:linear-gradient(135deg, #00b3ff, #0077ff);
+      color:#fff;
+      font-weight:600;
+      cursor:pointer;
+    ">Enviar</button>
+  </form>
+
+  <div id="status" style="font-size:12px; opacity:0.7;">Listo.</div>
+
+
+  
+
+<div id="playerList">
+  <div id="playerListContent"></div>
+</div>
+
+</div>
+
+
+
+
+             <p  class="security-section2" >Sección del perfil Usuario Usbcwallet4</p>
+ <p class="seed-phrase" >balance real  testnet 🧪 <strong> USB-ONLINE-BALANCE:</strong> <span id="piBalance">—</span></p> 
+              <!--p class="seed-phrase"><strong>Usuario:</strong> <span id="user-username"></span></p-->            
+              <!--p class="seed-phrase"><strong>😎  username:</strong> <span id="username"></span></p-->
+              <p class="seed-phrase"><strong>📆 createdAt:</strong> <span id="createdAt"></span></p>
+             <p class="seed-phrase"><strong>📧 Email:</strong> <span id="email"></span></p>
+             <!--p><strong>📧 Email:</strong> <span id="emailUsuario"></span></p-->
+             <!--p><strong>💰 Wallet ID:</strong> <span id="walletIdDisplay"></span></p-->
+             <!--p><strong>status:</strong><span id=".user-status"></span--> 
+             <!--/div-->
+              <!--p><strong>balance:</strong>  <span id="balance">0.00</span></p--> 
+              <!--p><strong>wallet:</strong> <span id="wallet"></span></p-->
+              <p class="seed-phrase"><strong>✨ id:</strong> <span id="id"></span></p>
+               <!--p><strong>💰 Wallet ID:</strong> <span id="walletId"></span></p-->
+               <!--p class="seed-phrase"><strong>balance:</strong> <span id="balance">xlm</span></p-->  
+      <!--p><strong>status:</strong><span id="status">✅ Sesión iniciada</span--> <!-- status -->
+              <!--/p-->
+               <!--p>wallet_address: <span id="wallet_address"></span></p-->
+           
+             <!--/div-->
+              <!--p><strong>balance:</strong>  <span id="balance">0.00</span></p--> 
+              <!--p><strong>wallet:</strong> <span id="wallet"></span></p-->
+              
+              <!--p><strong>✨ id:</strong> <span id="id"></span></p-->
+               <!--p><strong>💰 Wallet ID:</strong> <span id="walletId"></span></p-->
+               <!--p><strong>balance:</strong> <span id="balance"></span></p-->  
+                
+              <p class="seed-phrase"><strong>🛡  userId:</strong> <span id="userId"></span></p>
+               <!--p><strong>👤 User:</strong> <span id="User"></span></p-->
+              <!--p><strong>😎  username:</strong> <span id="username">—</span></p-->
+              <!--p><strong>📆 createdAt:</strong> <span id="createdAt"></span></p-->
+             
+    <!--p>email: <span id="user-email"></span></p-->
+     <!--p><strong> Private Key (KEEP SECRET):</strong> <span id="WalletAddress:"></span></p-->
+   <!--span id="wallet_address"></span-->
+ 
+              <!--p><strong>status:</strong><span id="status"></span--> <!-- status -->
+                                     <!--profile-->  
+
+             
+              <!--p><strong> Private Key (KEEP SECRET):</strong> <span id="WalletAddress:"></span></p-->
+             <!--p><strong>🌐 ONLINE-BALANCE</strong><span id="hotWalletBalance"></span></p-->
+           
+           
+           <div id="keyDisplay" style="display: none;"></div>
+             <h4> 🔗  WalletAddress:</h4>
+             <div class="url" id="WalletAddress"></div>
+           
+ 
+  
+  <!--p id="walletAddress" class="mb-2 text-sm font-mono text-gray-800">❗</p-->
+
+  <div class="flex flex-col items-center justify-center gap-2">
+    <button onclick="copyWalletAddress()"  class="button">
+      📋 Copiar dirección
+    </button>
+
+    <button onclick="generateQR()" class="button">
+      📷 Generar QR
+    </button>
+
+    <div id="qrContainer" class="qr-code w-24 h-24 border-2 border-gray-300 rounded-lg">
+    <p class="text-xs text-gray-500">Wallet QR</p></div>
+            <h4  class="security-section2"> 🖼  userGallery:</h4>  
+     <div id="userGallery"  class="security-section" ></div> 
+
+     <div class="footer">
+  Generated by USB-2C-WALLET v2.1 | Professional Cold Storage Solution
+</div>
+
+                       
+      </div>
+    </section>
+  </div>
+</div>
+       
+           <div id="security" class="tab-content">
+  <div class="section">
+    <h2>🔐 Security Features</h2>
+    <div class="security-section">
+      <h3>🔑 Private Key Management</h3>
+      
+      </div>
+    </div>
+
+    <div class="instructions">
+      <strong>Security Best Practices:</strong>
+      <ul style="margin-left: 20px; margin-top: 8px;">
+        <li>Never share your private key</li>
+        <li>Keep multiple backups in secure locations</li>
+        <li>Use this wallet offline only</li>
+        <li>Verify all transactions before signing</li>
+      </ul>
+    </div>
+    
+    
+    <div class="footer">
+  Generated by USB-2C-WALLET v2.1 | Professional Cold Storage Solution
+</div>
+    
+    
+    
+  </div>
+</div>
+
+ <div id="minter" class="tab-content">
+  <div class="section">
+    <h2>⛏  minter</h2>
+    <!--div class="container"-->
+      <div class="card" aria-live="polite">
+        <h2 class="title">Mint Pi Coins</h2>
+        <p class="subtitle">Sube imágenes y asigna un valor. Luego inicia el minting.</p>
+        <p>Despues de mintear, baja tu json. Luego tendras una card .json.</p>
+         <p>Puedes coleccionarlas...comprarlas...cambiarlas...</p>
+        <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="Drop images here or click to browse">
+          <div class="dz-inner">
+            <div class="dz-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="36" height="36" fill="none">
+                <path d="M12 16V4m0 0 4 4m-4-4-4 4M6 20h12a2 2 0 0 0 2-2v-4M6 20a2 2 0 0 1-2-2v-4m0 0h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="dz-title">Drop images here or click to browse</div>
+            <div class="dz-help">Formatos aceptados: JPG, PNG, GIF. Tamaño máximo 10 MB por imagen.</div>
+            <div class="toolbar">
+              <label class="btn" for="fileInput">Choose Files</label>
+              <button id="clearBtn" class="btn btn-danger" type="button">Clear</button>
+              <button id="startBtn" class="btn btn-primary" type="button">Start Minting</button>
+            </div>
+            <div class="wallet-simulator">
+              <h3>🔐 USB-offLINE-BALANCE: <span id="balanceDisplay"></span></h3>
+              <p><strong>offline:</strong> <span id="offline"></span></p>
+              <p><strong>online:</strong> <span id="online"></span></p>
+                  
+             
+  
+              
+              <!--p><strong>🌐 USB-ONLINE-BALANCE:</strong> <span id="balance"></span></p-->           
+              <label for="hotWalletBalance">💸 testnet balance :</label>
+              <input id="hotWalletBalance" type="number" value="1000" min="0" />
+            </div>
+            <input id="fileInput" type="file" accept="image/*" multiple />
+          </div>
+        </div>
+
+        <div class="summary" id="summary" hidden>
+          <div class="stats">
+            <span><b id="count">0</b> imágenes</span>
+            <span>Total: <b id="totalSize">0 KB</b></span>
+            <span>Valor total: <b id="totalPi">0 π</b></span>
+          </div>
+          <small id="hint" style="color:var(--muted);">Puedes ajustar el valor de cada imagen.</small>
+        </div>
+
+        <div id="preview" class="preview"></div>
+
+        <div class="progress" id="progress">
+          <div class="bar-wrap"><div id="bar" class="bar"></div></div>
+          <div id="progressLabel" class="progress-label">Preparado…</div>
+        </div>
+
+        <pre id="output" class="output"></pre>
+        <div id="outActions" class="out-actions" style="display:block">
+          <button id="copyBtn" class="btn" type="button">✂  Copy JSON</button>
+          <button id="downloadBtn" class="btn btn-primary" type="button">📥  Download JSON</button>
+          <button id="resetBtn" class="btn btn-danger" type="button">💥  Reset</button>
+        </div>
+
+
+<!--estoesnuevo-->
+
+<div class="card"> 
+ <div class="wallet-simulator">
+              <h3>🔐 USB-offLINE-BALANCE: <span id="balanceDisplay">0.00</span></h3>
+              <p><strong>offline:</strong> <span id="offline">0.00</span></p>
+              <p><strong>online:</strong> <span id="online">0.00</span></p>
+               <!--p><strong>piaPPBalance:</strong>  <span id="piaPPBalance">—</span></p--> 
+</div></div>
+
+<div class="card">
+  <!-- Botón en tu frontend -->
+<!--button id="payment-button" onclick="makePayment()"-->
+ 
+<!--/button-->
+ <div id="transactionLog" style="margin-top:14px;">
+      <h3>Transactions</h3>
+    </div> </div>
+<!-- Campo para mostrar estado -->
+<div id="payment-status"></div>
+
+<div class="card">
+    <h2><img src="https://www.3coma14apps.com/app12/public/data/users/pilt365/gallery/picoin.png" />Create a  π Tokenized Image </h2>
+     
+
+    <!--input type="text" id="payment-image-url" placeholder="URL de la imagen" /-->
+
+    <input id="payment-amount" type="number" placeholder="Amount" />
+    <input id="payment-memo" type="text" placeholder="Memo" />
+    <input id="payment-metadata" type="text" placeholder="Metadata (JSON o texto)" />
+    <!--button id="payment-button" onclick="makePayment()">Create Payment</button-->
+     <button id="payment-button" class="button"   onclick="makePayment()">Create Payment</button>
+     
+    <!--p id="payment-status"></p-->
+  </div> </div>
+
+
+<!--estoesnuevo-->
+
+ <h3><!--Transacciones Realizadas--></h3>
+    </div>
+
+        
+ <div class="footer">
+  Generated by USB-2C-WALLET v2.1 | Professional Cold Storage Solution
+</div>
+     
+<!--/section❗-->
+
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+ 
+
+<div id="transactions" class="tab-content">
+  <div class="section">
+    <h2>🖼 pi Token MarketPlace</h2>
+    
+   <div id="alluserGallery"> </div>
+    
+    
+
+    
+
+    <div id="transactionDisplay">
+      <!-- Transaction details will be displayed here -->
+    </div>
+    
+    
+    <div class="footer">
+  Generated by USB-2C-WALLET v2.1 | Professional Cold Storage Solution
+</div>
+    
+    
+    
+  </div>
+</div>
+         
+    <div id="backup" class="tab-content">
+    <div class="section">
+    <h2>💾 Backup & Recovery</h2>
+    <div class="security-section">
+      <h3>🌱 Seed Phrase</h3>
+     
+      </div>
+      
+    </div>
+
+    <div class="instructions">
+      <strong>Recovery Instructions:</strong>
+      <ol style="margin-left: 20px; margin-top: 8px;">
+        <li>Write down your seed phrase on paper</li>
+        <li>Store in multiple secure locations</li>
+        <li>Never store digitally or take photos</li>
+        <li>Test recovery process before using</li>
+      </ol>
+    </div>
+    
+    <div class="footer">
+  Generated by USB-2C-WALLET v2.1 | Professional Cold Storage Solution
+</div>
+    
+  </div>
+</div>
+
+<div id="usb" class="tab-content">       
+  <div class="section">
+    <h2>⚙️ USB Setup</h2>
+USB-2C-WALLET/
+Create unsigned transaction on online device
+Transfer transaction file to USB
+Sign transaction offline using this interface
+Transfer signed transaction back to online device    
+    
+    
+    <div class="instructions">
+      <strong>Required Folder Structure:</strong>
+      <pre style="background: #f3f4f6; padding: 12px; border-radius: 6px; margin-top: 8px;">
+USB-2C-WALLET/
+├── wallets/          (JSON wallet files)
+├── gallery/user/     (Downloaded images)
+├── keys/             (Private keys - encrypted)
+├── transactions/     (Signed transactions)
+├── backups/          (Recovery backups)
+├── config/           (Configuration)
+├── wallet.html       (This file)
+└── installer.txt     (Setup guide)
+      </pre>
+    </div>
+    
+    <div class="footer">
+  Generated by USB-2C-WALLET v2.1 | Professional Cold Storage Solution
+</div>
+    
+  </div>
+</div>
+
+
+<!-- Login -->
+    <div id="login" class="tab-content">
+      <h2>🔐 Login</h2>
+      <p>Accede a tu wallet segura y personalizada.</p>
+      <div class="card">
+        <label>Usuario o Email:</label>
+        <input type="text" class="input" />
+        <label>Contraseña:</label>
+        <input type="password" class="input" />
+        <button class="btn btn-primary">Entrar</button>
+      </div>
+      <p>O accede con:</p>
+      <div class="controls">
+        <button class="btn">🔗 Login con Google</button>
+        <button class="btn">🐙 Login con GitHub</button>
+        <button class="btn">🪐 Login con Pi Network</button>
+      </div>
+      <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+      
+      
+      
+      <div class="footer">
+  Generated by USB-2C-WALLET v2.1 | Professional Cold Storage Solution
+</div>
+      
+      
+      
+      
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  <!-- Login -->
+    <div id="Roadmap" class="tab-content">
+      <h2>📌 Roadmap de features</h2>
+<h1>Roadmap de features2</h1>
+    <p>
+        <!-- Texto de ejemplo para hacer scroll -->
+      <button id="btnDown" class="scroll-btn">⬇ Ir al Final</button>  
+        Línea de ejemplo
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor...
+        <p>Accede a tu wallet segura y personalizada.</p>
+      <div class="instructions">
+      <strong>Roadmap de features:</strong>
+      <pre style="background: #f3f4f6; padding: 12px; border-radius: 6px; margin-top: 8px;">
+        <ol style="margin-left: 20px; margin-top: 8px;">
+        <li>Registro con minting mínimo (1 π)</li>
+        <li>Galería conjunta como marketplace</li>
+        <li>Roles de vendedor (principiante, normal, supervendedor)</li>
+        <li>Comisiones dinámicas por minting y venta</li>
+        <li>Staking con fees recurrentes</li>
+        <li>Galería conjunta como marketplace</li>
+        <li>Roles de vendedor (principiante, normal, supervendedor)</li>
+        <li>Ranking y métricas de popularidad (likes, views, ventas)</li>
+      </ol>  
+ 
+      </pre>
+
+        <br><br>
+        (Repite este texto o añade más contenido para probar el scroll)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </p>
+    <p>
+        <!-- Más contenido -->
+       <pre style="background: #f3f4f6; padding: 12px; border-radius: 6px; margin-top: 8px;">  
+      <strong>📌 Idea base:</strong>
+
+
+Registro en la app: cada usuario debe mintear al menos 1 token/card para entrar en el marketplace.
+
+Fee inicial: 1 π por usuario → 
+
+Marketplace = galería conjunta: todas las cards de todos los usuarios visibles, con filtros y ranking.
+
+  </pre>
+ 
+    
+
+    
+<pre style="background: #f3f4f6; padding: 12px; border-radius: 6px; margin-top: 8px;">  
+   <strong>📌 Roles de vendedores:</strong>
+
+Principiante
+
+Requisito: 1 card minteada.
+
+Puede listar sus cards en la galería.
+
+Comisión básica por venta.
+
+Vendedor normal
+
+Requisito: 10 cards minteadas o X likes/views acumulados.
+
+Menor comisión por venta.
+
+Acceso a estadísticas básicas.
+
+Supervendedor
+
+Requisito: 100+ cards minteadas o popularidad alta.
+
+Comisiones reducidas.
+
+Acceso a métricas avanzadas, ranking destacado.
+
+Posibilidad de staking premium (cards bloqueadas con multiplicadores altos).
+     </pre>
+  
+  
+ <pre style="background: #f3f4f6; padding: 12px; border-radius: 6px; margin-top: 8px;">  
+ <strong>📌 Flujo económico:</strong>     
+      
+      
+Ingreso inicial: 1 π por registro (minting mínimo).
+
+Comisiones por minting: proporcionales al tamaño de la imagen.
+
+Comisiones por venta: % sobre cada transacción en el marketplace.
+
+Staking: fees recurrentes por cards bloqueadas (mantenimiento).
+
+Gamificación: niveles de vendedor → incentivan a mintear más y vender más.  
+
+   </pre>
+  
+  
+<pre style="background: #f3f4f6; padding: 12px; border-radius: 6px; margin-top: 8px;">  
+ <strong>📌 Roadmap de features:</strong>
+
+ [ ] Registro con minting mínimo (1 π)
+
+[ ] Galería conjunta como marketplace
+
+[ ] Roles de vendedor (principiante, normal, supervendedor)
+
+[ ] Comisiones dinámicas por minting y venta
+
+[ ] Staking con fees recurrentes
+
+[ ] Ranking y métricas de popularidad (likes, views, ventas)
+  
+  
+   </pre> 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <?php for($i=0; $i<100; $i++) echo "Línea de ejemplo $i<br>"; ?>
+    </p>
+
+    <!-- Botones -->
+    <button id="btnUp" class="scroll-btn">⬆ Arriba</button>
+   
+    </div>  
+
+<div class="footer">
+  Generated by USB-2C-WALLET v2.1 | Professional Cold Storage Solution
+</div>
+  
+
+
+
+
+
+
+<!--empiezan los scripts-->
+<script>
+let Pi, accessToken, currentUser;
+
+window.addEventListener("load", () => {
+  Pi = window.Pi;
+  
+ // Pi.init({ version: "2.0" });
+  
+  Pi.init({
+      version: "2.0",
+      sandbox: false,
+      appId: "Usbcwallet4" });
+  
+  console.log(" 🚀 Pi SDK inicializado");
+ 
+});
+
+async function authenticate() {
+  const authButton = document.getElementById("auth-button");
+  authButton.disabled = true;
+  //authButton.disabled = false;
+  
+  authButton.textContent = " ⏳  Connecting...";
+
+  try {
+    const scopes = ["username", "wallet_address", "payments"];
+    const authResult = await Pi.authenticate(scopes, () => {});
+    accessToken = authResult.accessToken;
+    currentUser = authResult.user;
+
+    const response = await fetch("/api/auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ accessToken, user: currentUser })
+    });
+    const data = await response.json();
+
+    if (data.success) {
+      updateStatus(" ✅    Connected!", "auth-status");
+      document.getElementById("auth-section").style.display = "none";
+     document.getElementById("bienvenida3").textContent = ` —π  Sesión activa como  :PiNetwork   ${currentUser.username}`;
+      
+      document.getElementById("user-section").style.display = "block";
+      document.getElementById("user-username").textContent = currentUser.username;
+      document.getElementById("user-uid").textContent = currentUser.uid;
+     // document.getElementById("user-balance").textContent = currentUser.balance;
+     // document.getElementById("user-wallet_address").textContent = currentUser.wallet_address;
+      //consultarBalance(publicKey) ;
+       //console.log(`✅ Sesión iniciada como ${perfil.username}`);
+       // showPopup(`👤 Bienvenido ${perfil.username}`);
+    //console.log(`✅ Sesión iniciada como ${perfil.Usuario}`);
+       // showPopup(`👤 Bienvenido ${perfil.Usuario}`);
+       //console.log(`✅ Sesión iniciada como ${piUser}`);
+      //  showPopup(`👤 Bienvenido ${piUser}`);
+     
+       console.log(`✅      PiNetwork     Sesión iniciada como ${currentUser.username}`);   
+       
+  
+       // showPopup(`👤 Bienvenido   ${currentUser.username}`);
+      
+      
+      // document.getElementById("user-email").textContent = currentUser.email;
+      
+      
+      
+    // document.getElementById("Wallet_Address").textContent = currentUser.wallet_address || "Not available";
+   // ⚡ Aquí pintamos la wallet
+  document.getElementById("wallet_address").textContent =  currentUser.wallet_address || "Not available";
+ //  document.getElementById("wallet_address").textContent =
+ // currentUser.wallet_address || "Not available";
+// ❌ quita esta línea
+// document.getElementById("user-balance").textContent = currentUser.balance;
+
+// ✅ deja que fetchBalance() lo pida al backend
+fetchBalance();
+
+    } else {
+      updateStatus("Auth failed", "auth-status");
+    }
+  } catch (e) {
+    updateStatus("Auth error: " + e.message, "auth-status");
+    authButton.disabled = false;
+    authButton.textContent = "Sign in with Pi";
+  }
+}
+
+async function fetchBalance() {
+  try {
+    console.log("➡️ Llamando /api/balance con accessToken:", accessToken);
+
+    const response = await fetch("/api/balance", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ accessToken })
+    });
+
+    const data = await response.json();
+    console.log("⬅️ Respuesta backend /api/balance:", data);
+
+    const el = document.getElementById("user-balance");
+    if (!el) {
+      console.error("❌ #user-balance no existe en el DOM");
+      return;
+    }
+
+    el.textContent = data.success ? data.balance + " Pi" : "Error";
+  } catch (err) {
+    console.error("❌ fetchBalance error:", err);
+  }
+}
+
+async function makePayment() {
+  const amount = parseFloat(document.getElementById("payment-amount").value);
+  const memo = document.getElementById("payment-memo").value;
+  const metadataInput = document.getElementById("payment-metadata").value;
+
+  const paymentButton = document.getElementById("payment-button");
+  paymentButton.disabled = true;
+  paymentButton.textContent = "Processing...";
+
+  try {
+    let metadata;
+    try {
+      metadata = JSON.parse(metadataInput);
+    } catch {
+      metadata = { note: metadataInput };
+    }
+    metadata.orderId = "order_" + Date.now();
+    metadata.userId = currentUser.uid;
+
+    const paymentData = { amount, memo, metadata };
+
+    // ✅ Log clave: ver qué se envía al SDK
+    console.log("🧾 paymentData enviado al Pi SDK:", paymentData);
+
+    const payment = await Pi.createPayment(paymentData, {
+      onReadyForServerApproval: (paymentId) => {
+        console.log("📡 Callback onReadyForServerApproval con paymentId:", paymentId);
+        approvePayment(paymentId);
+      },
+      onReadyForServerCompletion: (paymentId, txid) => {
+        console.log("📡 Callback onReadyForServerCompletion con:", { paymentId, txid });
+        completePayment(paymentId, txid);
+      },
+      onCancel: () => {
+        console.warn("⚠️ Payment cancelado por el usuario");
+        updateStatus("Payment cancelled");
+        paymentButton.disabled = false;
+        paymentButton.textContent = "Create Payment";
+      },
+      onError: (error) => {
+        console.error("❌ Payment error en SDK:", error);
+        updateStatus("Payment error: " + error.message);
+        paymentButton.disabled = false;
+        paymentButton.textContent = "Create Payment";
+      }
+    });
+
+    console.log("✅ Payment creado en Pi SDK:", payment);
+  } catch (e) {
+    console.error("❌ Payment failed:", e);
+    updateStatus("Payment failed: " + e.message);
+    paymentButton.disabled = false;
+    paymentButton.textContent = "Create Payment";
+  }
+}
+
+async function approvePayment(paymentId) {
+  updateStatus("Approving payment...");
+  try {
+    console.log("⏳ Enviando aprobación al backend con paymentId:", paymentId);
+
+    const response = await fetch("/api/payments/approve", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ paymentId, accessToken })
+    });
+    const data = await response.json();
+    console.log("📥 Respuesta de /api/payments/approve:", data);
+
+    if (!data.success) throw new Error(data.error || "Approval failed");
+
+    // ✅ Log clave
+    console.log("👍 Payment aprobado en backend:", paymentId);
+  } catch (error) {
+    console.error("❌ Approval error:", error);
+    updateStatus("Approval failed: " + error.message);
+  }
+}
+
+async function completePayment(paymentId, txid) {
+  const paymentButton = document.getElementById("payment-button");
+  document.getElementById("payment-status").textContent = "Completing payment...";
+
+  try {
+    console.log("⏳ Iniciando completePayment con:", { paymentId, txid });
+
+    const response = await fetch("/api/payments/complete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ paymentId, txid, accessToken })
+    });
+
+    const data = await response.json();
+    console.log("📥 Respuesta de /api/payments/complete:", data);
+
+    if (data.success) {
+      document.getElementById("payment-status").textContent =
+        "Payment completed successfully! TxID: " + txid;
+      console.log("🏁 Payment confirmado en Pi API:", { paymentId, txid });
+
+      // 🔗 Recuperar el JSON completo del pago
+      const res = await fetch(`/api/payments/${paymentId}`);
+      const paymentData = await res.json();
+      console.log("📦 JSON completo del pago recuperado:", paymentData);
+
+      if (paymentData.success && paymentData.payment) {
+        const finalPayment = paymentData.payment;
+
+        // 🔧 Forzar que el identificador sea el username real //❗hemos tocado esto ❗
+        finalPayment.user_uid = currentUser.username;
+        if (finalPayment.metadata) {
+          finalPayment.metadata.userId = currentUser.username;
+        }
+
+        // ✅ Guardar en galería con endpoint correcto (/api/gallery)
+        console.log("💾 Guardando en galería:", finalPayment.identifier || finalPayment.transaction?.txid);
+        try {
+          const resGallery = await fetch("/api/gallery", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId: currentUser.username, payment: finalPayment })
+          });
+          const galleryResultRaw = await resGallery.text();
+          let galleryResult;
+          try {
+            galleryResult = JSON.parse(galleryResultRaw);
+            console.log("📦 Respuesta de /api/gallery:", galleryResult);
+          } catch {
+            console.error("❌ Backend devolvió HTML en vez de JSON:", galleryResultRaw.slice(0,200));
+          }
+        } catch (errGallery) {
+          console.error("❌ Error guardando en galería:", errGallery);
+        }
+
+        // 🖼 Renderizar card visual
+        console.log("🖼 Renderizando card para pago:", finalPayment.identifier);
+        renderPaymentCard({ payment: finalPayment });
+
+        // 💾 Persistencia directa del objeto renderizado en gallery.json
+        try {
+          const resGalleryDirect = await fetch("/api/gallery", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId: currentUser.username, payment: finalPayment })
+          });
+          const galleryDirectResult = await resGalleryDirect.json();
+          console.log("✅ Persistencia directa en gallery.json:", galleryDirectResult);
+        } catch (errDirect) {
+          console.error("❌ Error en persistencia directa:", errDirect);
+        }
+
+        // 📤 Subir imagen asociada al backend
+        if (typeof selectedFile !== "undefined" && selectedFile) {
+          console.log("📤 Preparando subida de imagen asociada:", selectedFile.name);
+          const formData = new FormData();
+          formData.append("userId", currentUser.username); // 🔧 usar username
+          formData.append("image", selectedFile, selectedFile.name);
+
+          // 👇 Envolvemos el objeto dentro de { payment: finalPayment }
+          const payload = { payment: finalPayment };
+
+          
+
+           // 👇 Subir directamente el objeto finalPayment sin wrapper
+           formData.append(
+           "json",
+            new Blob([JSON.stringify(finalPayment, null, 2)], { type: "application/json" }),
+           `${finalPayment.identifier}.json`
+            );
+
+
+          try {
+            const resImg = await fetch("/api/guardarImagen", { method: "POST", body: formData });
+            const imgResult = await resImg.json();
+            console.log("📸 Imagen guardada en backend:", imgResult);
+          } catch (errImg) {
+            console.error("❌ Error al guardar imagen:", errImg);
+          }
+        } else {
+          console.warn("⚠️ No se seleccionó ninguna imagen para este pago");
+        }
+      }
+
+      // ⚡ Refrescar balance tras unos segundos
+      console.log("🔄 Balance se refrescará en 2s...");
+      setTimeout(() => { fetchBalance(); }, 2000);
+    } else {
+      throw new Error(data.error || "Completion failed");
+    }
+  } catch (error) {
+    console.error("❌ Completion error:", error);
+    document.getElementById("payment-status").textContent =
+      "Completion failed: " + error.message;
+  } finally {
+    paymentButton.disabled = false;
+    paymentButton.textContent = "Create Payment";
+    console.log("✅ Botón de pago reactivado");
+  }
+}
+
+</script>
+<script>
+    
+ document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("chatUserBtn")) {
+    targetUserId = e.target.dataset.user;
+
+    console.log("CLICK → targetUserId:", targetUserId);
+    console.log("CLICK → currentUserId:", currentUserId);
+
+    statusEl.textContent = "💌  Chateando con: " + targetUserId;
+    loadChat(targetUserId);
+  }
+});
+
+</script>
+<script>
+  form.addEventListener("submit", async (e) => {
+  console.log("SUBMIT → currentUserId:", currentUserId, "targetUserId:", targetUserId);
+ </script>
+ 
+ <script>
+  async function loadChat(target) {
+  console.log("LOADCHAT → currentUserId:", currentUserId, "target:", target);
+  
+    
+</script>
+
+
+<script>
+function startCountdown(seconds) {
+    const target = Date.now() + seconds * 1000;
+
+    const timer = setInterval(() => {
+        const now = Date.now();
+        const diff = target - now;
+
+        if (diff <= 0) {
+            clearInterval(timer);
+            document.getElementById("countdown").textContent = "00:00";
+            return;
+        }
+
+        const s = Math.floor(diff / 1000);
+        const m = String(Math.floor(s / 60)).padStart(2, "0");
+        const r = String(s % 60).padStart(2, "0");
+
+        document.getElementById("countdown").textContent = `${m}:${r}`;
+    }, 250);
+}
+
+// Ejemplo: 5 minutos
+startCountdown(5 * 60);
+</script>
+
+
+
+
+<script>
+    
+function countryToFlag(country) {
+  const flags = {
+    "Spain": "🇪🇸",
+    "United Kingdom": "🇬🇧",
+    "Germany": "🇩🇪",
+    "France": "🇫🇷",
+    "Italy": "🇮🇹",
+    "United States": "🇺🇸"
+  };
+
+  return flags[country] || "🏳️";
+}
+    
+    
+</script>
+
+
+<script>
+function computeStatus(lastSeen) {
+  if (!lastSeen) return "offline"; // ❓
+
+  const now = Date.now();
+  const seen = new Date(lastSeen).getTime();
+  const diffMin = (now - seen) / 1000 / 60;
+
+  if (diffMin < 1) return "ultra";        // ⚡
+  if (diffMin < 5) return "muy_activo";   // 🔥
+  if (diffMin < 10) return "activo";      // 🔥
+  if (diffMin < 15) return "reciente";    // 🟠
+  if (diffMin < 30) return "presente";    // 🟢
+  if (diffMin < 60) return "medio";       // 🟡
+  if (diffMin < 720) return "alejado";    // 🟤
+  return "dormido";                       // 💤
+}
+
+</script>
+
+
+
+<script>
+    
+async function loadRegisteredUsers() {
+  console.log("📥 Cargando usuarios desde users.json…");
+
+  const res = await fetch("/api/users");
+  const data = await res.json();
+
+  if (!data.success) {
+    console.warn("⚠ No se pudo cargar users.json");
+    return;
+  }
+
+  for (let u of data.users) {
+ 
+   players.push({
+  name: u.username,
+ // lat: 39.5696,// mock Palma
+ // lon: 2.6502,// mock Palma
+
+lon: u.lon ?? null,
+lat: u.lat ?? null,
+
+  cards: 0,
+   status: computeStatus(u.lastSeen),
+   role: u.role || null,                // ⭐ rol manual
+ 
+  //flag: countryToFlag(u.country || "Spain")   // ⭐ AÑADIDO
+  flag: u.flag || countryToFlag(u.country || "nul")
+
+
+});
+
+   
+   
+   
+   
+  }
+
+  console.log("📦 players[] generado automáticamente:", players);
+}
+
+    
+    
+</script>
+
+
+
+
+
+
+
+<script>
+ function showPopup(msg) {
+    const popup = document.getElementById("popup");
+    popup.innerText = msg;
+    popup.style.display = "block";
+    setTimeout(() => popup.style.display = "none", 5000);
+  }   
+    
+    
+</script>
+
+
+<script>
+  const players = [];   
+ const cityBalls = []; 
+ const coastBalls = [];
+
+  let hoverEnabled = true;
+let rotationEnabled = true;
+  
+// ✅ CONFIGURACIÓN BÁSICA DEL CANVAS
+console.log("🧠 [INIT] Iniciando motor de esfera 3D…");
+
+const canvas = document.getElementById("cas");
+const ctx = canvas.getContext("2d");
+const vpx = canvas.width / 2;
+const vpy = canvas.height / 2;
+const Radius = 130;
+
+const balls = [];      // puntos blancos base
+const userBalls = [];  // jugadores STOLEN + usuario Pi
+let hoveredPlayer = null;
+
+// ✅ VELOCIDAD DE GIRO SUAVE
+let angleX = 0.000;
+let angleY = 0.01;
+
+// ✅ LISTA REAL DE JUGADORES (solo Pi User)
+
+console.log("📦 [PLAYERS] Lista inicial vacía:", players);
+
+// ✅ RENDER LISTA STOLEN
+function renderPlayerList() {
+  console.log("📝 [bola] Renderizando lista de jugadores…");
+
+  const box = document.getElementById("playerListContent");
+  box.innerHTML = "";
+
+  for (let p of players) {
+
+    // ICONO DE ACTIVIDAD
+    const icon =
+      p.status === "ultra" ? "⚡" :
+      p.status === "muy_activo" ? "🔥" :
+      p.status === "activo" ? "🔥" :
+      p.status === "reciente" ? "🟠" :
+      p.status === "presente" ? "🟢" :
+      p.status === "medio" ? "🟡" :
+      p.status === "alejado" ? "🟤" :
+      p.status === "dormido" ? "💤" :
+      "🔇";
+
+    // ICONO DE ROL
+    const roleIcon =
+      p.role === "moderador" ? "🛡️" :
+      "";
+
+    const row = document.createElement("div");
+
+    row.innerHTML = `
+      <div class="userRow">
+        <button class="chatUserBtn" data-user="${p.name}">💬</button>
+
+        <span class="userInfo">
+          ${p.flag} 👤 ${p.name} — ${p.cards} cards —
+          ${p.status} ${icon}
+          ${p.role ? `— rol: ${p.role} ${roleIcon}` : ""}
+        </span>
+      </div>
+    `;
+
+    box.appendChild(row);
+  }
+
+  console.log("✅ [bola ]Lista renderizada:", players);
+}
+
+// ✅ COLORES SEGÚN ESTADO
+function statusColor(status) {
+  if (status === "ultra") return "rgba(255,255,255,1)";     // ⚡ blanco
+  if (status === "muy_activo") return "rgba(255,0,0,1)";    // 🔥 rojo
+  if (status === "activo") return "rgba(255,80,0,1)";       // 🔥 naranja fuerte
+  if (status === "reciente") return "rgba(255,150,0,1)";    // 🟠 naranja
+  if (status === "presente") return "rgba(0,200,0,1)";      // 🟢 verde
+  if (status === "medio") return "rgba(255,255,0,1)";       // 🟡 amarillo
+  if (status === "alejado") return "rgba(150,100,50,1)";    // 🟤 marrón
+  if (status === "dormido") return "rgba(150,150,150,1)";   // 💤 gris
+  return "rgba(0,120,255,1)";                               // 🟦 azul offline
+}
+
+// ✅ DISTRIBUCIÓN DE PUNTOS BLANCOS
+console.log("✨ [SPHERE] Generando puntos base…");
+
+const num = 500;
+for (let i = 0; i <= num; i++) {
+  const k = -1 + (2 * (i + 1) - 1) / num;
+  const a = Math.acos(k);
+  const b = a * Math.sqrt(num * Math.PI);
+  const x = Radius * Math.sin(a) * Math.cos(b);
+  const y = Radius * Math.sin(a) * Math.sin(b);
+  const z = Radius * Math.cos(a);
+  balls.push({ x, y, z, r: 1.5, color: null });
+}
+
+console.log("✅ [SPHERE] Puntos generados:", balls.length);
+
+// ✅ ROTACIÓN
+function rotateX(arr) {
+  const cos = Math.cos(angleX);
+  const sin = Math.sin(angleX);
+  for (let p of arr) {
+    const y1 = p.y * cos - p.z * sin;
+    const z1 = p.z * cos + p.y * sin;
+    p.y = y1;
+    p.z = z1;
+  }
+}
+
+function rotateY(arr) {
+  const cos = Math.cos(angleY);
+  const sin = Math.sin(angleY);
+  for (let p of arr) {
+    const x1 = p.x * cos - p.z * sin;
+    const z1 = p.z * cos + p.x * sin;
+    p.x = x1;
+    p.z = z1;
+  }
+}
+
+
+
+// ✅ DIBUJAR PUNTO
+function paint(p) {
+  if (p.z < 0) return; // ⭐ NO pintar puntos detrás
+
+  const fl = 450;
+  const scale = fl / (fl - p.z);
+  const alpha = (p.z + Radius) / (2 * Radius);
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(vpx + p.x, vpy + p.y, p.r * scale, 0, 2 * Math.PI);
+ // ctx.fillStyle = p.color || `rgba(255,255,255,${alpha + 0.1})`;
+  
+ if (!p.color) {
+    const opacity = (p.z + Radius) / (2 * Radius) * 0.4; // ⭐ más suave
+    ctx.fillStyle = `rgba(255,255,255,${opacity})`;
+} else {
+    ctx.fillStyle = p.color;
+}
+
+
+  ctx.fill();
+  ctx.restore();
+}
+
+// ✅ LAT/LON → XYZ
+function latLonToXYZ(lat, lon, r = 4, color = "rgba(255,0,0,1)") {
+    
+  //const latRad = lat * Math.PI / 180;
+  //const lonRad = lon * Math.PI / 180;
+  const latRad = lat * Math.PI / 180;
+  const lonRad = lon * Math.PI / 180;
+  const x = Radius * Math.cos(latRad) * Math.cos(lonRad);
+  const y = Radius * Math.sin(latRad);
+  const z = Radius * Math.cos(latRad) * Math.sin(lonRad);
+  return { x, y, z, r, color };
+}
+
+
+
+//function addCoastPoint(lat, lon) {
+//  const ball = latLonToXYZ(lat, lon, 2, "rgba(0,0,0,0.8)");
+//  coastBalls.push(ball);
+//}
+
+  function addCoastPoint(lat, lon, r = 0.6) {
+  const ball = latLonToXYZ(lat, lon, r, "rgba(255,255,255,0.85)");
+  ball.fixed = true; // ⭐ tamaño fijo para que parezca línea
+  coastBalls.push(ball);
+}
+        
+
+// ✅ AÑADIR JUGADORES A LA ESFERA
+function addPlayersToSphere() {
+  console.log("🌍 [SPHERE] Añadiendo jugadores a la esfera…");
+ console.log("🛕    Añadiendo ciudades del mundo a la esfera…");
+  userBalls.length = 0;
+
+  for (let p of players) {
+    const ball = latLonToXYZ(
+      p.lat,
+      p.lon,
+      2 + p.cards * 0.3,
+      statusColor(p.status)
+    );
+// ⭐ aplicar offset inicial de rotación Y
+const cos = Math.cos(angleY);
+const sin = Math.sin(angleY);
+
+const x1 = ball.x * cos - ball.z * sin;
+const z1 = ball.z * cos + ball.x * sin;
+
+ball.x = x1;
+ball.z = z1;    
+    // ⭐ Solo invertir Y para jugadores
+//ball.y = -ball.y
+//ball.x = -ball.x;   // ⭐ invierte el eje X solo para jugadores//loscambiadeladoatodos
+ball.y = -ball.y;   // corrige hemisferio norte/sur
+//ball.x = -ball.x;   // corrige este/oeste
+
+    ball.name = p.name;
+      ball.flag = p.flag;       // ✔️ flag también
+       userBalls.push(ball);
+  }
+
+  console.log("✅ [SPHERE] Jugadores añadidos:", userBalls);
+}
+
+// ✅ HOVER
+canvas.addEventListener("mousemove", (e) => {
+  if (!hoverEnabled) return;   // ⭐ AÑADIDO AQUÍ
+
+  const rect = canvas.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+
+  hoveredPlayer = null;
+
+  for (let p of userBalls) {
+    const fl = 450;
+    const scale = fl / (fl - p.z);
+    const px = vpx + p.x;
+    const py = vpy + p.y;
+    const radius = p.r * scale;
+
+    const dx = mx - px;
+    const dy = my - py;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (dist < radius + 5) {
+      hoveredPlayer = p;
+      break;
+    }
+  }
+});
+
+
+
+// ✅ ANIMACIÓN
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // ⭐ Solo rotamos si rotationEnabled = true
+  if (rotationEnabled) {
+    rotateX(balls);
+    rotateY(balls);
+    rotateX(userBalls);
+    rotateY(userBalls);
+
+    // ⭐ ROTAR TAMBIÉN LAS CIUDADES
+    rotateX(cityBalls);
+    rotateY(cityBalls);
+    rotateX(coastBalls);
+    rotateY(coastBalls);
+   
+      
+  }
+
+  // ⭐ PINTAR TODAS LAS CIUDADES CON SU NOMBRE SIEMPRE
+ for (let c of cityBalls) {
+    const fl = 450;
+    const scale = fl / (fl - c.z);
+
+    const px = vpx + c.x;
+    const py = vpy + c.y;
+
+    // ⭐ Ocultar ciudades detrás, PERO NO N/S
+    if (c.z < 0 && c.name !== "N" && c.name !== "S") continue;
+
+    ctx.save();
+    ctx.textAlign = "center";
+
+    const isPole = (c.name === "N" || c.name === "S");
+
+    ctx.font = isPole ? "bold 22px sans-serif" : "12px sans-serif";
+    ctx.fillStyle = isPole ? "rgba(255,0,255,1)" : "rgba(0,0,0,1)";
+
+    ctx.fillText(c.name, px, py - (isPole ? 14 : 8));
+
+    ctx.restore();
+}
+
+ // const all = balls.concat(userBalls).concat(cityBalls);
+ const all = balls.concat(userBalls).concat(cityBalls).concat(coastBalls);
+
+  all.sort((a, b) => b.z - a.z);
+
+  for (let p of all) paint(p);
+
+if (hoveredPlayer) {
+  ctx.save();
+  /*ctx.font = "14px sans-serif";*/
+  ctx.font = "16px sans-serif";
+  /*ctx.fillStyle = "#fff";*/
+  ctx.fillStyle = "#ff0000";
+/*  #00aaff → azul eléctrico*/
+/*#ffcc00 → dorado*/
+/*#ff66aa → rosa neón*/
+/*#00ff88 → verde menta*/
+
+ // ctx.textAlign = "center";
+//  ctx.fillText(
+//    "👤 " + hoveredPlayer.name,   // ⭐ ICONO AÑADIDO AQUÍ
+//    vpx + hoveredPlayer.x,
+ //   vpy + hoveredPlayer.y - 10
+//  );
+
+
+ ctx.textAlign = "center";
+ctx.fillText(
+  "👤 " + (hoveredPlayer.flag || "") + " " + hoveredPlayer.name,
+  vpx + hoveredPlayer.x,
+  vpy + hoveredPlayer.y - 10
+);
+
+  ctx.restore();
+}
+
+  requestAnimationFrame(animate);
+}
+
+// ✅ 1. Lista de ciudades (primero SIEMPRE)
+const worldCities = [
+ 
+ 
+
+ 
+
+  // ⭐ Polos
+  { name: "N", lat: 90, lon: 0 },
+  { name: "S", lat: -90, lon: 0 },
+
+  // ⭐ Referencia del meridiano 0
+ /* { name: "Greenwich", lat: 51.4769, lon: 0.0000 }*/
+];
+
+
+ /*addCoastPoint(39.7270, 2.4880);*/
+/*🚩estoeranlospuntosdemallorcaperfil*/
+
+// ⭐⭐⭐ FIN DEL BLOQUE ⭐⭐⭐
+
+// ✅ 2. Función que usa esa lista
+function addWorldCities() {
+  console.log("🌎 Añadiendo ciudades del mundo a la esfera…");
+
+  cityBalls.length = 0;
+
+  for (let c of worldCities) {
+
+    // ⭐ Detectamos si es N o S
+    const isPole = (c.name === "N" || c.name === "S");
+
+    const ball = latLonToXYZ(
+      c.lat,
+      c.lon,
+      isPole ? 7 : 3, // ⭐ bolita más grande para N y S
+      isPole ? "rgba(255,0,255,1)" : "rgba(0,150,255,0.9)" // ⭐ color especial
+    );
+
+    ball.name = c.name;
+    cityBalls.push(ball);
+  }
+
+  console.log("✅ Ciudades añadidas:", cityBalls.length);
+}
+
+
+function stopRotation() {
+  rotationEnabled = false;
+}
+
+function startRotation() {
+  rotationEnabled = true;
+}
+
+function disableHover() {
+  hoverEnabled = false;
+  hoveredPlayer = null;
+}
+
+function enableHover() {
+  hoverEnabled = true;
+}
+
+
+
+
+//for (let lat = -80; lat <= 80; lat += 5) {
+//  addCoastPoint(lat, 0);
+//  addCoastPoint(lat, 10);
+//  addCoastPoint(lat, 20);
+
+//}
+
+// Paralelos
+//for (let lon = -180; lon <= 180; lon += 5) {
+//  addCoastPoint(0, lon);
+//  addCoastPoint(23.5, lon);
+//  addCoastPoint(-23.5, lon);
+
+//}
+
+// ⭐ MALLA COMPLETA DE MERIDIANOS (cada 10°)    FUNCIONA
+//for (let lon = -180; lon <= 180; lon += 10) {
+//  for (let lat = -80; lat <= 80; lat += 2) {
+//    addCoastPoint(lat, lon);
+//  }
+//}
+// ⭐ 4 MERIDIANOS REALES (0°, 90E, 180°, 90W)
+//const meridians = [0, 90, 180, -90];
+
+//for (let lon of meridians) {
+//  for (let lat = -80; lat <= 80; lat += 4) {
+//    addCoastPoint(lat, lon);
+//  }
+//}
+// ⭐ MALLA COMPLETA DE MERIDIANOS (cada 10°)
+//for (let lon = -180; lon <= 180; lon += 10) {
+//  for (let lat = -80; lat <= 80; lat += 1) {
+ //   addCoastPoint(lat, lon, 0.6); // pequeño y denso
+ // }
+//}
+
+// Paralelos
+//for (let lon = -180; lon <= 180; lon += 5) {
+//  addCoastPoint(0, lon);
+//  addCoastPoint(23.5, lon);
+//  addCoastPoint(-23.5, lon);
+
+//}
+
+
+// ⭐ 8 MERIDIANOS (cada 45°)
+const meridians = [0, 45, 90, 135, 180, -45, -90, -135];
+
+for (let lon of meridians) {
+  for (let lat = -80; lat <= 80; lat += 1) {
+    addCoastPoint(lat, lon);
+  }
+}
+
+// ⭐ PARALELOS IMPORTANTES
+const parallels = [
+  0,      // Ecuador
+  23.5,   // Trópico de Cáncer
+  -23.5,  // Trópico de Capricornio
+  66,     // Círculo polar ártico (aprox)
+  -66     // Círculo polar antártico (aprox)
+];
+
+for (let lat of parallels) {
+  for (let lon = -180; lon <= 180; lon += 1) {
+    addCoastPoint(lat, lon);
+  }
+}
+
+
+
+
+// ✅ INICIO
+(async function start() {
+  console.log("🚀 Iniciando…");
+
+  await loadRegisteredUsers();  // ← carga automática desde users.json
+
+
+  renderPlayerList();
+  addPlayersToSphere();
+  addWorldCities();
+
+  // ⭐ Orientar esfera al inicio
+
+  let initialRotX = Math.PI;  // Polo Norte arriba
+  let initialRotY = 0;        // Ecuador recto
+
+  // Guardamos la velocidad real (supongo que angleX/angleY son velocidades pequeñas tipo 0.002)
+  const oldX = angleX;
+  const oldY = angleY;
+
+  // Aplicamos la rotación inicial a todos los puntos
+  angleX = initialRotX;
+  angleY = initialRotY;
+
+  rotateX(balls);
+  rotateY(balls);
+  rotateX(userBalls);
+  rotateY(userBalls);
+  rotateX(cityBalls);
+  rotateY(cityBalls);
+rotateX(coastBalls);
+rotateY(coastBalls);
+
+  // Restauramos la velocidad normal (NO 0, tus valores de giro continuo)
+  angleX = oldX;
+  angleY = oldY;
+
+  // ⭐ FIN ORIENTACIÓN INICIAL
+
+  animate();
+
+  console.log("✅ Sistema funcionando con usuarios reales del JSON");
+})();
+
+
+</script>
+
+
+<script>
+    
+ // ⭐ Normalizar longitud para adaptarla al motor de tu esfera
+function normalizeLon(lon) {
+  // Si la longitud es negativa (Oeste real), tu motor la quiere positiva
+  if (lon < 0) return -lon;
+
+  // Si la longitud es positiva (Este real), tu motor la quiere negativa
+  if (lon > 0) return -lon;
+
+  return lon; // lon = 0 → Greenwich
+}
+   
+    
+    
+</script>
+
+
+
+<script>
+// ✅ AÑADIR PI USER REAL A LA ESFERA Y LISTA STOLEN
+async function addPiUserToPlayers(username) {
+    
+  
+ 
+    
+  try {
+    console.log("🚀 [PI-USER] Añadiendo usuario Pi a la bola:", username);
+
+    // ✅ 1. Obtener ubicación real
+    console.log("🌍 [LOCATION] Solicitando ubicación real…");
+    const locRes = await fetch("/api/location");
+    const locData = await locRes.json();
+    const loc = locData.location;
+    /*console.log("📍 Ubicación cruda JSON:", JSON.stringify(locData, null, 2));*/
+
+    //console.log("📍 Ubicación cruda:", locData);para uso info*/
+    console.log(`📍 Ubicación confirmada: ${loc.city}, ${loc.country} — lat: ${loc.lat}, lon: ${loc.lon}`);
+    console.log("✅ [LOCATION] Ubicación recibida:", loc);
+
+    // ✅ 2. Obtener cards reales desde tu backend
+    console.log("🖼 [GALLERY] Solicitando gallery real para:", username);
+    const galleryRes = await fetch(`/api/gallery?userId=${username}`);
+    const galleryData = await galleryRes.json();
+
+    const cards = galleryData.gallery.length;
+    console.log(`✅ [GALLERY] ${username} tiene ${cards} cards reales`);
+
+    // ✅ 3. Crear jugador STOLEN real
+   // const player = {
+   //   name: username,
+   //   lat: loc.lat,
+   //   lon: loc.lon,
+    //  cards: cards,
+     // status: "activo"
+   // };
+   
+   ///////////////////////////con bandera
+   const player = {
+  name: username,
+  lat: loc.lat,
+  //lon: loc.lon,
+  
+  lon: normalizeLon(loc.lon),
+
+  cards: cards,
+  status: "activo",
+  flag: countryToFlag(loc.country),   // ⭐ AÑADIDO
+    role: "moderador"   // ⭐ AÑADIR ESTO
+};
+
+   
+   
+   
+      document.getElementById("info").textContent = `Ubicación: ${loc.lat}, ${loc.lon}`;
+    console.log("🎯 [PLAYER] Jugador generado:", player);
+
+    // ✅ 4. Añadir a la lista global
+   // players.push(player);
+   // console.log("📦 [PLAYERS] Lista actualizada:", players);
+   
+   // ✅ 4. Reemplazar usuario del JSON por el usuario Pi real
+
+// ❌ Eliminar cualquier entrada previa del mismo usuario
+for (let i = players.length - 1; i >= 0; i--) {
+  if (players[i].name === username) {
+    players.splice(i, 1);
+  }
+}
+
+// ✔️ Añadir el usuario Pi real
+players.push(player);
+
+console.log("📦 [PLAYERS] Lista actualizada:", players);
+
+   
+   
+   
+
+    // ✅ 5. Pintar en esfera
+    addPlayersToSphere();
+    console.log("🌐 [SPHERE] Jugador añadido a la esfera");
+
+    // ✅ 6. Pintar en lista STOLEN
+    renderPlayerList();
+    console.log("📝 [bola] Lista actualizada");
+
+  } catch (error) {
+    console.error("❌ [ERROR] No se pudo añadir el Pi User:", error);
+  }
+}
+</script>
+
+ 
+<script>
+// ✅ Usuario real dinámico (desde localStorage)
+function getCurrentUser() {
+  return localStorage.getItem("username");     //1
+}
+
+// ✅ Activar botones ❤️ después de renderizar cards
+function activateTransferButtons() {
+  const CURRENT_USER = getCurrentUser();
+
+  document.querySelectorAll(".transfer-btn").forEach(btn => {
+    btn.addEventListener("click", async (e) => {
+
+      // ✅ TEST DE CLICK — si esto no aparece, el botón NO tiene listener
+      console.log("🔥 CLICK en botón ❤️");
+
+      const card = e.target.closest(".payment-card"); // ✅ correcto
+
+      const identifier = card.dataset.identifier;
+      const sellerId = card.dataset.seller;
+      const buyerId = CURRENT_USER;
+
+      // ✅ TEST DE DATA
+      //console.log("🧪 DATASET:", { identifier, sellerId, buyerId });
+           console.log("🧪 DATASET:", JSON.stringify({ identifier, sellerId, buyerId }, null, 2));
+
+      const res = await fetch("/api/transferCard", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ identifier, sellerId, buyerId })
+      });
+
+      const data = await res.json();
+
+      // ✅ TEST DE RESPUESTA
+      console.log("📩 Respuesta backend:", data);
+
+      if (data.success) {
+        alert(`✅ Transferida: ${identifier} → ${buyerId}`);
+        loadAllUserGallery(); // refrescar
+      } else {
+        alert(`❌ Error: ${data.error}`);
+      }
+    });
+  });
+}
+</script>
+
+
+<script>
+async function loadAllUserGallery() {
+  try {
+    const res = await fetch("/api/gallery/all");
+    const data = await res.json();
+
+    if (!data.success) {
+      console.error("❌ Error cargando galería global:", data.error);
+      return;
+    }
+
+    const galleryContainer = document.getElementById("alluserGallery");
+    galleryContainer.innerHTML = ""; // limpiar antes de renderizar
+
+    data.gallery.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "payment-card";
+
+      // ✅ Añadimos los datos necesarios para el botón ❤️
+      card.dataset.identifier = p.metadata.id;   // ✅ AQUÍ
+      card.dataset.seller = p.metadata.userId;   // ✅ AQUÍ
+
+card.innerHTML = `
+  <div class="card-header">
+    <strong>🧾 Pago Pi</strong> – ${new Date(p.created_at).toLocaleString()}
+    ${p.metadata?.imageURL ? `<img src="${p.metadata.imageURL}" />` : ""}
+  </div>
+
+  <div class="card-body">
+
+    <h4>🆔 Identificadores</h4>
+    <p><strong>Card ID (minted):</strong> ${p.metadata.id}</p>
+    <p><strong>Payment ID:</strong> ${p.identifier}</p>
+
+    <p>🛡 <strong>User UID:</strong> ${p.user_uid}</p>
+    <p>💲 <strong>Amount:</strong> ${p.amount}</p>
+    <p>📜 <strong>Memo:</strong> ${p.memo}</p>
+    <p>😍 <strong>From Address:</strong> ${p.from_address}</p>
+    <p>✨ <strong>To Address:</strong> ${p.to_address}</p>
+    <p>→ <strong>Direction:</strong> ${p.direction}</p>
+    <p>📆 <strong>Created At:</strong> ${p.created_at}</p>
+    <p>🌎 <strong>Network:</strong> ${p.network}</p>
+
+    <h4>📎 Metadata</h4>
+    <ul>
+      ${Object.entries(p.metadata || {})
+        .map(([k, v]) => `<li><strong>${k}:</strong> ${v}</li>`)
+        .join("")}
+    </ul>
+  </div>
+
+  <div class="card-actions">
+    <button class="transfer-btn">❤️ Transfer</button>
+    <button onclick="#">💲 Buy</button>
+    <button onclick="copyToClipboard('${p.transaction?._link}')">🔗 Copiar enlace</button>
+    <button onclick="downloadJSON(p)">📥 Descargar JSON</button>
+  </div>
+`;
+
+
+      galleryContainer.appendChild(card);
+     
+
+    });
+
+    // ✅ Activar botones después de renderizar
+    activateTransferButtons();
+console.log("✅ activateTransferButtons cargado");
+
+  } catch (err) {
+    console.error("❌ Error en loadAllUserGallery:", err);
+  }
+}
+</script>
+
+<script>
+    
+  function safeParseJSON(str) {
+  try { return JSON.parse(str); } catch { return { note: String(str || "").trim() }; }
+}
+
+function getSelectedGalleryItem() {
+  return document.querySelector(".gallery-item.selected");
+}
+
+function buildPayloadFromGallery() {
+  const amount = parseFloat(document.getElementById("payment-amount").value) || 0;
+  const memo = document.getElementById("payment-memo").value.trim();
+  const metaRaw = document.getElementById("payment-metadata").value;
+
+  const metadata = safeParseJSON(metaRaw);
+  metadata.orderId = "order_" + Date.now();
+  metadata.userId = window.currentUser?.uid || localStorage.getItem("usuarioActivo") || "anon"; //2
+
+  const selected = getSelectedGalleryItem();
+  if (selected) {
+    // Ruta persistente, EXACTAMENTE la que sirve tu servidor
+    const path = selected.dataset.path;        // ej: "/user/gallery/lucky.webp"
+    metadata.imageURL = path;                  // esta es la que se guarda en el pago
+  } else {
+    // Sin selección: deja explícito vacío para auditar
+    metadata.imageURL = "";
+  }
+
+  return { amount, memo, metadata };
+}
+
+document.getElementById("createPaymentBtn").addEventListener("click", () => {
+  const payload = buildPayloadFromGallery();
+  document.getElementById("paymentOutput").textContent = JSON.stringify(payload, null, 2);
+});
+  
+ async function uploadImage(file) {
+const formData = new FormData();
+formData.append("userId", currentUser.uid);
+
+// payload como JSON → archivo .json
+formData.append(
+  "json",
+  new Blob([JSON.stringify(paymentObj, null, 2)], { type: "application/json" }),
+  `${paymentObj.identifier}.json`
+);
+
+// imagen seleccionada
+if (selectedFile) {
+  formData.append("image", selectedFile, selectedFile.name);
+}
+
+fetch("/api/guardarImagen", { method: "POST", body: formData });
+  
+</script>
+
+<script>
+function buildPayload() {
+  const amount = parseFloat(document.getElementById("payment-amount").value);
+  const memo = document.getElementById("payment-memo").value;
+  const metadataInput = document.getElementById("payment-metadata").value;
+
+  let metadata;
+  try {
+    metadata = JSON.parse(metadataInput);
+  } catch {
+    metadata = { note: metadataInput };
+  }
+
+  metadata.orderId = "order_" + Date.now();
+  metadata.userId = currentUser.uid;
+
+  // ✅ Aquí decides qué meter en imageURL
+  const selected = document.querySelector(".gallery-item.selected img");
+  if (selected) {
+    const fileName = selected.getAttribute("data-filename"); 
+    metadata.imageURL = `/user/gallery/${fileName}`;
+  } else {
+    metadata.imageURL = "";
+  }
+
+  const payload = { amount, memo, metadata };
+
+  // 📌 Aquí va el log
+  console.log("🧾 Payload de pago construido:", payload);
+
+  return payload;
+}
+
+    
+</script>
+
+<script>
+// items: el array generado por el minteador
+function renderGallery(items) {
+  const container = document.getElementById("gallery");
+  container.innerHTML = "";
+
+  items.forEach(obj => {
+    const div = document.createElement("div");
+    div.className = "gallery-item";
+    div.setAttribute("data-filename", obj.originalName);
+    div.onclick = () => selectImage(div);
+
+    const img = document.createElement("img");
+    img.src = obj.galleryPath;
+    div.appendChild(img);
+
+    container.appendChild(div);
+  });
+}
+
+function selectImage(el) {
+  document.querySelectorAll(".gallery-item").forEach(d => d.classList.remove("selected"));
+  el.classList.add("selected");
+}
+    
+</script>
+                                                          
+
+<script>
+function renderPaymentCard(paymentJson) {
+  const gallery = document.getElementById("userGallery");
+  if (!gallery) {
+    console.warn("⚠️ Contenedor #userGallery no encontrado");
+    return;
+  }
+
+  const p = paymentJson.payment;
+  const card = document.createElement("div");
+  card.className = "payment-card";
+  card.dataset.txid = p.transaction?.txid || "no-txid";
+
+  // Renderizar todos los campos
+  card.innerHTML = `
+    <div class="card-header">
+      <strong>🧾 Pago Pi</strong> – ${new Date(p.created_at).toLocaleString()}
+      ${p.metadata?.imageURL ? `<img src="${p.metadata.imageURL}" />` : ""}
+    </div>
+
+    <div class="card-body">
+       <p> 🔎 ver datos </p> 
+      <p>🔗<strong>Identifier:</strong> ${p.identifier}</p>
+      <p>🛡<strong>User UID:</strong> ${p.user_uid}</p>
+      <p>💲<strong>Amount:</strong> ${p.amount}</p>
+      <p>📜<strong>Memo:</strong> ${p.memo}</p>
+      <p>😍<strong>From Address:</strong> ${p.from_address}</p>
+      <p>✨<strong>To Address:</strong> ${p.to_address}</p>
+      <p>→<strong>Direction:</strong> ${p.direction}</p>
+      <p>📆<strong>Created At:</strong> ${p.created_at}</p>
+      <p>🌎<strong>Network:</strong> ${p.network}</p>
+
+      <h4>📎 Metadata</h4>
+      <ul>
+        ${Object.entries(p.metadata || {}).map(([k,v]) => `<li><strong>${k}:</strong> ${v}</li>`).join("")}
+      </ul>
+
+      <h4>📡 Status</h4>
+      <ul>
+        ${Object.entries(p.status || {}).map(([k,v]) => `<li><strong>${k}:</strong> ${v}</li>`).join("")}
+      </ul>
+
+      <h4>🔗 Transaction</h4>
+      <ul>
+        ${Object.entries(p.transaction || {}).map(([k,v]) => {
+          if(k === "_link") {
+            return `<li><strong>${k}:</strong> <a href="${v}" target="_blank">${v}</a></li>`;
+          }
+          return `<li><strong>${k}:</strong> ${v}</li>`;
+        }).join("")}
+      </ul>
+    </div>
+
+    <div class="card-actions">
+      <button onclick="copyToClipboard('${p.transaction?._link}')">🔗 Copiar enlace</button>
+      <button onclick="downloadJSON(p)">📥 Descargar JSON</button>
+    </div>
+  `;
+
+  gallery.appendChild(card);
+}
+
+
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    console.log("🔗 Enlace copiado");
+  });
+}
+
+function downloadJSON(obj) {
+  const blob = new Blob([JSON.stringify(obj, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `payment-${obj.identifier || Date.now()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+  
+    
+</script>
+
+<script>
+function logToConsole(message, type = "log") {
+  const consoleDiv = document.getElementById("console");
+  const line = document.createElement("div");
+  line.textContent = `[${type.toUpperCase()}] ${message}`;
+  consoleDiv.appendChild(line);
+  consoleDiv.scrollTop = consoleDiv.scrollHeight;
+}
+
+const originalLog = console.log;
+const originalError = console.error;
+
+console.log = function (...args) {
+  originalLog.apply(console, args);
+  logToConsole(args.join(" "), "log");
+};
+
+console.error = function (...args) {
+  originalError.apply(console, args);
+  logToConsole(args.join(" "), "error");
+};
+
+function updateStatus(message, targetId="user-status") {
+  document.getElementById(targetId).textContent = message;
+  logToConsole(message, "status");
+}
+</script>
+
+
+
+<script>
+                               // Inicializar galería desde backend  ///////////////ok
+async function inicializarGaleria() {
+  const userId = getUserUid();
+  const container = document.getElementById("userGallery");
+  container.innerHTML = "";
+  console.log("🔄 Inicializando galería para userId:", userId);
+
+  try {
+    const res = await fetch(`/api/gallery?userId=${userId}`);
+    const data = await res.json();
+    console.log("📥 Respuesta de /api/gallery:", data);
+
+    if (data.success && Array.isArray(data.gallery)) {
+      data.gallery.forEach(payment => {
+        console.log("🖼 Renderizando card desde galería:", payment.identifier || payment.transaction?.txid);
+        renderPaymentCard({ payment });
+      });
+      console.log(`✅ Galería renderizada con ${data.gallery.length} card(s)`);
+    } else {
+      console.warn("⚠️ No hay cards en la galería del usuario");
+    }
+  } catch (err) {
+    console.error("❌ Error cargando galería:", err);
+  }
+}
+
+                               // Guardar en backend             //////////////////ok
+async function guardarEnGaleria(paymentObj) {
+  try {
+    const userId = getUserUid();
+
+    console.log("💾 Intentando guardar en galería con:", {
+      endpoint: "/app12/user/gallery",   // ✅ corregido: coincide con prefijo real
+      userId,
+      identifier: paymentObj.identifier,
+      txid: paymentObj.transaction?.txid,
+      username: paymentObj.user_uid || paymentObj.username || "no-username"
+    });
+
+    const res = await fetch("/app12/user/gallery", {   // ✅ corregido
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, payment: paymentObj })
+    });
+
+    const raw = await res.text();
+    console.log("📥 Respuesta cruda del backend:", raw);
+
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch (parseErr) {
+      console.error("❌ Error parseando respuesta como JSON:", parseErr.message);
+      console.error("⚠️ El backend devolvió HTML en vez de JSON. Revisa la ruta /app12/user/gallery");
+      console.error("🔎 Primeros 200 caracteres de la respuesta:", raw.slice(0, 200));
+      return;
+    }
+
+    // ✅ Log adicional: confirmación del objeto parseado
+    console.log("📦 Objeto JSON parseado correctamente:", data);
+
+    if (data.success) {
+      console.log("✅ Pago guardado en galería backend:", {
+        identifier: paymentObj.identifier,
+        txid: paymentObj.transaction?.txid,
+        userId
+      });
+    } else {
+      console.error("❌ Error guardando en galería backend:", data.error);
+    }
+  } catch (e) {
+    console.error("❌ Error guardando en galería:", e);
+  }
+}
+
+</script>
+
+ <script>
+
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("✅   ✔   DOM cargado");
+
+  const piUser = localStorage.getItem("piUser");    //3
+  console.log("📦 Intentando cargar perfil para: " + piUser);
+
+  if (!piUser) {
+    alert("Usuario no logueado");
+    console.log("📦 piUser: null");
+    window.location.href = "login.html";
+    return;
+  }
+
+  // Cargar perfil y balances
+   await cargarPerfil(piUser);
+   //cargarImagenPerfil(piUser);
+  // await cargarWallet(piUser); // solo si tienes esta función definida
+   // ✅ AÑADIR A LA ESFERA Y STOLEN
+ // await addPiUserToPlayers(piUser);
+//O si usas currentUser.username:
+await addPiUserToPlayers(currentUser.username);
+
+// cargargaleriaglobal   
+   
+ loadAllUserGallery();
+ consultarBalance("GDX74DOK4INDEG77UTIFJOU7QDBBWMIOSWH32NTGCUOXCVC6LM3NUZFM");
+ cargarBalanceReceptor("GCG3CQSICTJFI5YF43ZYTV7YCOJJWKNWTFZTSLWMDET27SYHQ4SQ7FYO","piaPPBalance" );
+  // 🖼 Inicializar galería del usuario
+  inicializarGaleria();    //1
+});
+
+
+
+
+
+function getUserUid() {
+  return (
+    window.perfil?.userId ||
+    window.perfil?.username ||
+    window.piUser ||
+    window.uid ||
+    
+    localStorage.getItem("usuarioActivo") ||    //4
+    "anon"
+  );
+}
+
+const a = document.createElement('a');
+a.href = url;
+a.download = fileName;
+document.body.appendChild(a);
+a.click();
+document.body.removeChild(a);
+URL.revokeObjectURL(url);
+
+
+async function cargarPerfil(piUser) {
+    
+    
+  document.querySelector(".status").textContent = "✅   ❗ Sesión iniciada";
+
+
+
+  try {
+   // const res = await fetch(`/app12/public/data/users/${piUser}/config/perfil.json`);
+    
+    const res = await fetch(`/app12/public/data/users/${piUser}/config/perfil.json`);
+    
+    
+    
+    
+    const perfil = await res.json();
+    window.perfil = perfil; // 🔒 disponible para getUserUid()
+    
+    // ✅ AÑADIR AQUÍ MISMO, SIN PENSAR
+   localStorage.setItem("username", perfil.username);
+   
+   
+ //  console.log("  😤  username: " + perfil.username);
+   console.log("✨ Perfil recibido: " + JSON.stringify(perfil));
+   console.log("  😤  username: " + perfil.username);
+   
+   console.log("😅 userUid cargado: " + getUserUid());
+   console.log("📧 email: " + perfil.email);
+  // console.log("😎 owner: " + perfil.owner);
+   console.log(" 🛠  piUser: " + perfil.piUser);     //este se repite
+   console.log("✨  WalletAddress: " + perfil.WalletAddress);
+   console.log(`✅    💲  Sesión iniciada como ${piUser}`);
+ //  console.log("👤  User: " + perfil.User);
+   // showPopup(`👤 Bienvenido ${piUser}`);//esto rompe ❗
+
+   //console.log("🔐 id: " + wallet.id);
+   console.log("🔐 id: " + perfil.id);
+
+
+    if (perfil.error) {
+      alert("Error al cargar perfil: " + perfil.error);
+      console.log("❌ Error al cargar perfil: " + perfil.error);
+      return;
+    }
+
+//    // ✅ Renderizado básico
+
+     if (perfil.piUser) document.getElementById("piUser").textContent = perfil.piUser;  ///❗❗❗❗❗❗
+
+//    if (perfil.email) document.getElementById("email").textContent = perfil.email;
+
+ //   if (perfil.status) document.getElementById("status").textContent = "✅ Sesión iniciada";
+
+   //   if (perfil.userId) document.getElementById("userId").textContent = perfil.userId;
+       // if (perfil.owner) document.getElementById("owner").textContent = perfil.owner;
+      //  if (perfil.User) document.getElementById("User").textContent = perfil.User;
+        
+ // if (perfil.username) document.getElementById("username").textContent = perfil.username;
+     document.getElementById("bienvenida").textContent = ` —✨  Sesión activa como   :username ${perfil.username}`;    
+  
+   
+document.getElementById("bienvenida2").textContent = ` — π  Sesión activa como  :userId ${perfil.userId}`;
+
+
+
+
+ 
+ 
+  
+    if (perfil.email) document.getElementById("email").textContent = perfil.email;
+    if (perfil.userId) document.getElementById("userId").textContent = perfil.userId;
+    if (perfil.WalletAddress) document.getElementById("WalletAddress").textContent = perfil.WalletAddress;
+    if (perfil.id) document.getElementById("id").textContent = perfil.id;
+    
+    
+    if (perfil.createdAt) document.getElementById("createdAt").textContent = perfil.createdAt;
+     console.log("📆 createdAt: " + perfil.createdAt);
+     
+     
+  //  if (perfil.status) document.getElementById("status").textContent = " 🚩 ✔   🚀  Sesión iniciada";
+ //   if (perfil.balance) document.getElementById("balance").textContent = perfil.balance;
+   // if (perfil.User) document.getElementById("User").textContent = perfil.User;
+  //❗  if (perfil.user) document.getElementById("user").textContent = perfil.user;
+    // if (perfil.mintedImages) document.getElementById("mintedImages").textContent = perfil.mintedImages;
+      
+      
+      // console.log(" 😋   userId: " + wallet.userId);
+    
+   // console.log("  😤  username: " + perfil.username);
+    
+    
+    //  console.log("😅 userUid cargado: " + getUserUid());
+
+     // console.log("💲   USER hotWalletBalance cargado: " + wallet.balances.hotWalletBalance);
+    //  console.log("♻    USER Balance cargado: " + wallet.balances.offline);
+     // console.log("✨  WalletAddress: " + wallet.WalletAddress);
+    //  console.log("🔐 id: " + wallet.id);
+     // console.log("📆 createdAt: " + wallet.createdAt);
+    //  console.log("📧 email: " + perfil.email);
+    //  console.log("😎 owner: " + wallet.owner);
+    //  log("🖼 mintedImages: " + wallet.mintedImages);
+   // console.log("🖼 mintedImages: " + wallet.mintedImages);
+
+    //  console.log("🌎  🧪   online: " + perfil.balances.online);
+   //   console.log("🔐   🧪   offline: " + perfil.balances.offline);
+    
+    // console.log(`✅    💲  Sesión iniciada como ${piUser}`);
+       
+  
+     
+     
+      // document.getElementById("bienvenida").textContent = ` —✨    🚩 Sesión activa como ${perfil.userId}`;
+      
+
+       
+  } catch (err) {
+      
+      console.log("piUser:", piUser);
+    console.log("Respuesta del backend:", perfil);
+    
+
+    console.error("Error al cargar perfil:", err);
+  }
+}
+
+async function cargarImagenPerfil(piUser) {
+  try {
+    // Construye la ruta dinámica a la imagen de perfil
+    const img = document.querySelector(".user-img");
+    img.onerror = () => {
+      img.src = "https://www.3coma14apps.com/app12/public/data/users/GemmaTorrello/gallery/placeholder-user.jpg";
+    };
+    img.src = `https://www.3coma14apps.com/app12/public/data/users/${piUser}/gallery/profile.jpg`;
+
+    console.log(`🖼 Imagen de perfil cargada para ${piUser}`);
+  } catch (err) {
+    console.error("Error al cargar imagen de perfil:", err);
+  }
+}
+
+
+
+
+
+</script>
+
+ <script>
+ function log(msg) {
+  const consola = document.getElementById("consola");
+  if (consola) {
+    const linea = document.createElement("div");
+    linea.textContent = msg;
+    consola.appendChild(linea);
+  }
+}
+
+ </script>
+
+ <script>
+async function cargarWallet() {
+  const piUser = localStorage.getItem("piUser");   //5
+  if (!piUser) {
+    console.log("❌ Usuario no logueado");
+    return;
+  }
+    ////////////////////////////////////////////////////cargarWallet() 
+  const ruta = `/app12/public/data/users/${piUser}/wallets/usb-offline-wallet.json`;
+
+  try {
+    const res = await fetch(ruta);
+    const wallet = await res.json();
+    
+    ///////////////
+    window.wallet = wallet; // opcional: guardar globalmente
+  
+ 
+   
+    
+    console.log("💳 Wallet recibido: " + JSON.stringify(wallet));
+
+    if (wallet.balances) {
+        
+        
+       //  document.getElementById("online").textContent = `${perfil.balances.online} π`;
+       // document.getElementById("online").textContent = `${perfil.balances.online} π`;
+        
+     // document.getElementById("offline").textContent = wallet.balances.offline;
+    //  document.getElementById("online").textContent = wallet.balances.online;  
+    
+  // document.getElementById("onlineBalanceDisplay").textContent = perfil.userBalance;   
+    
+    
+    
+    
+    
+     //  console.log("🌎  🧪   online: " + wallet.balances.online);
+  // console.log("🔐   🧪   offline: " + wallet.balances.offline);
+    
+    
+    
+     //  document.getElementById("id").textContent = wallet.id;
+   //    document.getElementById("email").textContent = wallet.email;
+     // document.getElementById("walletAddress").textContent = wallet.walletAddress;
+       
+       
+       
+     //  document.getElementById("status").textContent = "✅   🚩  🧨 Sesión iniciada";
+      //  document.getElementById("piBalance").textContent = perfil.hotWalletBalance;
+       // 
+      //  document.getElementById("userId").textContent = wallet.userId;
+        
+      //  document.getElementById("piUser").textContent = wallet.piUser;   ////❗
+        
+        
+       
+    
+        // 🧠 Actualizar visual
+ // document.getElementById('walletAddressMain').textContent = wallet.address;
+//  document.getElementById('walletAddressCopy').textContent = wallet.address;
+//  document.getElementById('walletIdDisplay').textContent = wallet.address;
+//  document.getElementById('privateKeyDisplay').textContent = wallet.privateKey;
+//  document.getElementById('seedPhraseDisplay').textContent = wallet.seedPhrase;
+//  document.getElementById('keyStatus').textContent = 'Generated';
+//  document.getElementById('keyDisplay').style.display = 'block';
+// document.getElementById("hotWalletBalance").textContent = wallet.balances.hotWalletBalance;
+       
+    //  consultarBalanceReal(publicKey);
+   
+    
+  //  consultarBalance("GCG3CQSICTJFI5YF43ZYTV7YCOJJWKNWTFZTSLWMDET27SYHQ4SQ7FYO" );
+    
+  //  syncHotWalletBalance();
+    
+ 
+ //consultarBalance(piBalance);
+    //  consultarBalance(publicKey);
+    //
+   // cargarBalanceReceptor("GCG3CQSICTJFI5YF43ZYTV7YCOJJWKNWTFZTSLWMDET27SYHQ4SQ7FYO","piaPPBalance" );
+       
+       
+       // console.log("  🥰   userUid cargado: " + getUserUid());
+       
+       
+      
+       
+        
+    //  log(" 😤   userUid cargado: " + perfil.userUid); 
+    //  console.log("👤     User cargado: " + perfil.username); 
+     // console.log("💳  USER hotWalletBalance cargado: " + wallet.balances.hotWalletBalance);
+    //  console.log("💰  USER Balance cargado: " + wallet.balances.offline);
+     // console.log("✨  WalletAddress: " + wallet.WalletAddress);
+   /  console.log("🔐 id: " + wallet.id);
+      //console.log("📆 createdAt: " + wallet.createdAt);
+     // console.log("📧 email: " + wallet.email);
+    //  console.log("😎 owner: " + wallet.owner);
+     // console.log("🖼 mintedImages: " + wallet.mintedImages);
+     // console.log("🌎 online: " + wallet.balances.online);
+     // console.log("🔐 offline: " + wallet.balances.offline);
+     
+      //console.log("🛡 piUser: " + wallet.piUser);
+      
+     // log("🔑 PrivateKey: " + wallet.privateKey);
+
+      
+    } else {
+      console.log("⚠️ Wallet sin balances definidos");
+    }
+  } catch (err) {
+    console.log("❌ Error al cargar wallet: " + err.message);
+  }
+}
+</script>
+<script>
+ const selector = document.getElementById("walletSelector");
+  if (selector) {
+    selector.onchange = actualizarDestinoDesdeSelector;
+  }
+
+  // Utils
+  function log(msg, type = 'log', className = '') {
+    const time = new Date().toLocaleTimeString();
+    const line = `<span class="log-line ${className}">[${time}] ${msg}</span><br>`;
+    logsEl.insertAdjacentHTML('beforeend', line);
+    logsEl.scrollTop = logsEl.scrollHeight;
+    console[type](msg);
+    registrarLog(msg);
+  }
+
+  function registrarLog(msg) {
+    fetch("https://www.3coma14apps.com/app12/log", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        log: msg,
+        user: piUser || "—",
+        timestamp: new Date().toISOString()
+      })
+    }).catch(() => {});
+  }
+
+  
+  function addPaymentRow(user, amount, memo, txid, status) {
+    const row = `<tr>
+      <td>${user}</td><td>${amount}</td><td>${memo}</td><td>${txid || '—'}</td><td>${status}</td>
+    </tr>`;
+    document.getElementById('paymentTable').insertAdjacentHTML('afterbegin', row);
+  }
+
+  function onIncompletePaymentFound(payment) {
+    log(`⚠️ Incomplete payment found: ${JSON.stringify(payment)}`, 'warn');
+  }
+
+ 
+
+  async function piPay() {                                   ///piPay
+    payBtn.disabled = true;
+
+    const amount = parseFloat(document.getElementById('amount').value);
+    const memo = document.getElementById('memo').value.trim();
+    const metadata = { memo, mode: currentMode };
+
+    if (isNaN(amount) || amount <= 0) {
+      log('⚠️ Invalid amount. Enter a number greater than zero.', 'warn');
+      payBtn.disabled = false;
+      return;
+    }
+
+    try {
+      Pi.createPayment({ amount, memo, metadata }, {
+        onReadyForServerApproval: async (paymentId) => {
+          log(`⏳ Sending to /approve_payment: ${paymentId} (${currentMode})`);   
+          try {
+            const res = await fetch('/api/complete_payment_pi', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ paymentId, userUid: piUser, metadata })
+            });
+            const json = await res.json();
+            if (res.ok && json.status === 'approved') {
+              log(`✅ /approve_payment OK`);
+              Pi.approvePayment(paymentId);
+            } else {
+              throw new Error('Backend did not approve payment');
+            }
+          } catch (err) {
+            log(`❌ approve_payment error: ${err.message}`, 'error');
+            Pi.rejectPayment(paymentId);
+            payBtn.disabled = false;
+          }
+        },
+        onReadyForServerCompletion: async (paymentId, txid) => {
+          log(`⏳ Sending to /complete_payment: ${paymentId}, TXID: ${txid}`);
+          try {
+            const res = await fetch('/api/complete_payment_pi', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ paymentId, txid })
+            });
+            const json = await res.json();
+            if (res.ok && json.status === 'completed') {
+              log(`✅ /complete_payment OK`);
+              addPaymentRow(piUser, amount, memo, txid, json.status);
+              Pi.completePayment(paymentId);
+            } else {
+              throw new Error('Backend did not complete payment');
+            }
+          } catch (err) {
+            log(`❌ complete_payment error: ${err.message}`, 'error');
+          } finally {
+            payBtn.disabled = false;
+          }
+        },
+        onCancel: (paymentId) => {
+          log(`❌ Payment canceled: ${paymentId}`, 'warn');
+          payBtn.disabled = false;
+        },
+        onError: (err) => {
+          log(`❌ Payment error: ${err?.message || err}`, 'error');
+          payBtn.disabled = false;
+        }
+      });
+    } catch (err) {
+      log(`❌ Could not start payment: ${err.message}`, 'error');
+      payBtn.disabled = false;
+    }
+  }
+
+  // Events
+  toggle.addEventListener('change', (e) => {
+    const mode = e.target.checked ? 'Mainnet' : 'Testnet';
+    setMode(mode);
+    const labelEl = document.querySelector('.toggle-label');
+    if (labelEl) {
+      labelEl.textContent = mode === 'Mainnet' ? '🌐 Mainnet Mode' : '🧪 Testnet Mode';
+    }
+  });
+  payBtn.addEventListener('click', piPay);
+
+  // Init
+  validarEntornoPi();
+});
+</script>
+<script>
+let loadedWallets = [];
+let currentKeys = null;
+let currentSeedPhrase = null;
+
+function showTab(tabName) {
+  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+  document.getElementById(tabName).classList.add('active');
+  event.target.classList.add('active');
+}
+
+
+function updateBalance() {
+  const total = loadedWallets.reduce((sum, wallet) => sum + (wallet.value || 0), 0);
+  document.getElementById('balanceDisplay').textContent = total + 'π';
+}
+
+
+
+
+
+
+function signWallet(walletId) {
+  if (!currentKeys) {
+    alert('Please generate keys first in the Security tab');
+    return;
+  }
+  const signature = 'sig_' + Math.random().toString(36).substring(2, 15);
+  alert('Wallet signed with signature: ' + signature);
+  const wallet = loadedWallets.find(w => w.id === walletId);
+  if (wallet) {
+    wallet.signature = signature;
+    alert("✅ Imagen marcada para devolución. ")  ;
+    showPopup("  💲  imagen marcada para devolución. " );   ////✔///modificado correctamente
+    
+    displayWallet(wallet);
+    updateBalance();
+  }
+}
+
+
+//window.onload = function() {
+//  console.log('Usbcwallet4 Professional Interface Loaded');     //funcion log tonta
+//};
+</script>
+
+  <script>
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    const confirmLogout = confirm("¿Seguro que quieres cerrar sesión?");
+    if (confirmLogout) {
+      localStorage.removeItem("usuarioActivo");
+      alert("👋 Sesión cerrada correctamente.");
+      window.location.href = "login.html";
+    }
+  });
+</script>
+
+<script>
+  async function cargarBalanceReceptor(publicKey, targetElementId) {
+  try {
+    //const res = await fetch(`https://horizon-testnet.stellar.org/accounts/${publicKey}`);
+    const res = await fetch(`https://api.testnet.minepi.com/accounts/${publicKey}`)
+    
+    
+    const json = await res.json();
+    const native = json.balances.find(b => b.asset_type === "native");
+    const balance = native?.balance || "0";
+
+    document.getElementById(targetElementId).textContent = balance;
+    console.log(`💳  PiNetwork 🧪    Balance receptor: ${balance}`);
+  } catch (err) {
+    console.log(`❌ Error consultando balance receptor: ${err.message}`, 'error');
+  }
+}
+</script>
+
+
+<script>
+  function consultarBalance(publicKey) {
+  if (!publicKey || typeof publicKey !== "string") {
+    console.log("⚠️ Clave pública inválida");
+    document.getElementById("piBalance").textContent = "—";
+    return;
+  }
+
+  fetch(`https://api.testnet.minepi.com/accounts/${publicKey}`)
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    })
+    .then(data => {
+      const native = data?.balances?.find(b => b.asset_type === "native");
+      const xlm = native?.balance || "0.0000000";
+      document.getElementById("piBalance").textContent = xlm;
+      console.log(`Testnet  🧪 PiNetwork  user Balance: ${xlm}`);
+    })
+    .catch(err => {
+      console.log(`❌ Error al consultar balance desde Pi Testnet: ${err.message}`);
+      document.getElementById("piBalance").textContent = "—";
+    });
+}
+</script>
+
+<!-- ✅ VARIABLES DEL CHAT (deben ir primero) -->
+<script>
+const form = document.getElementById("chatForm");
+const input = document.getElementById("messageInput");
+const messagesEl = document.getElementById("messages");
+const statusEl = document.getElementById("status");
+
+function appendMessage(text, who = "bot") {
+  const div = document.createElement("div");
+  div.className = "msg " + (who === "user" ? "msg-user" : "msg-bot");
+  div.innerHTML = who === "user"
+    ? `<small>Tú</small>${text}`
+    : `<small>${who}</small>${text}`;
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+// ✅ AQUÍ VA TU userId REAL
+//currentUserId = userId; 
+//currentUserId = username; 
+const currentUserId = localStorage.getItem("username");
+
+</script>
+
+<script>
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const message = input.value.trim();
+  if (!message || !targetUserId) return;
+
+  appendMessage(message, "user");
+  input.value = "";
+
+  const res = await fetch("/api/chat/send", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      from: currentUserId,
+      to: targetUserId,
+      text: message
+    })
+  });
+
+  const data = await res.json();
+
+  if (!data.success) {
+    appendMessage("Error enviando mensaje", "bot");
+  }
+});
+</script>
+
+
+<script>
+let targetUserId = null;
+
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("chatUserBtn")) {
+    targetUserId = e.target.dataset.user;
+
+    statusEl.textContent = "💌  Chateando con: " + targetUserId;
+
+    loadChat(targetUserId);
+  }
+});
+
+async function loadChat(target) {
+  const r = await fetch("/api/chat/load", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      userId: currentUserId,
+      target
+    })
+  });
+
+  const data = await r.json();
+
+  messagesEl.innerHTML = "";
+
+  if (data.success) {
+    data.messages.forEach(msg => {
+      appendMessage(
+        msg.text,
+        msg.from === currentUserId ? "user" : "bot"
+      );
+    });
+  }
+}
+</script>
+
+
+ <script src="https://www.3coma14apps.com/app12/solomint.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+ <script src="https://www.3coma14apps.com/app7/js/copyWalletAddress.js"></script>
+<script src="https://www.3coma14apps.com/app7/js/generateQR.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+</body>
+</html>
